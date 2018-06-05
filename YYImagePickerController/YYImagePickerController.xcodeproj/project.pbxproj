@@ -42,6 +42,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D11F50F820B6978E00DC54A2 /* PhotoViewController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PhotoViewController;
+			sourceTree = "<group>";
+		};
 		D1F99769209071F500BE7996 = {
 			isa = PBXGroup;
 			children = (
@@ -61,6 +68,7 @@
 		D1F99774209071F500BE7996 /* YYImagePickerController */ = {
 			isa = PBXGroup;
 			children = (
+				D11F50F820B6978E00DC54A2 /* PhotoViewController */,
 				D1F99775209071F500BE7996 /* AppDelegate.h */,
 				D1F99776209071F500BE7996 /* AppDelegate.m */,
 				D1F99778209071F500BE7996 /* ViewController.h */,
@@ -292,6 +300,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MF5828SVH4;
 				INFOPLIST_FILE = YYImagePickerController/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -309,6 +318,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MF5828SVH4;
 				INFOPLIST_FILE = YYImagePickerController/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
