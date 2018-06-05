@@ -24,9 +24,32 @@
     self.navigationItem.title = @"本地相册";
     [self.tableView registerNib:[UINib nibWithNibName:@"YYGroupCell" bundle:nil] forCellReuseIdentifier:@"YYGroupCell"];
     self.mediaType = PHAssetMediaTypeUnknown;
-    [YYData allMediaDataSourceWithMediaType:self.mediaType callback:^(NSMutableArray<YYAssetCollection *> *array) {
+    [YYData allMediaDataSourceWithMediaType:self.mediaType callback:^(NSMutableArray<PHAssetCollection *> *array) {
         self.dataArray = array;
         [self.tableView reloadData];
+        
+        if (array.count > 0) {
+            id obj = self.dataArray.firstObject;
+            YYAssetCollection *assetCollection;
+            if ([obj isKindOfClass:[PHAssetCollection class]]) {
+                assetCollection = [[YYAssetCollection alloc] initWithPHAssetCollection:obj mediaType:self.mediaType];
+                [self.dataArray addObject:assetCollection];
+            }else if ([obj isKindOfClass:[YYAssetCollection class]]) {
+                assetCollection = (YYAssetCollection *)obj;
+            }
+            
+            NSString *groupName = @"";
+            if (assetCollection.assetCollection.assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumUserLibrary) {
+                groupName = [NSString stringWithFormat:@"相机胶卷（%ld）",assetCollection.count];
+            }else {
+                groupName = [NSString stringWithFormat:@"%@（%ld）",assetCollection.assetCollection.localizedTitle,assetCollection.count];;
+            }
+            YYAssetCollectionVC *vc = [YYAssetCollectionVC new];
+            vc.navigationItem.title = groupName;
+            vc.assetCollection = assetCollection;
+            vc.mediaType = self.mediaType;
+            [self.navigationController pushViewController:vc animated:NO];
+        }
     }];
 }
 
@@ -35,7 +58,15 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     YYGroupCell *cell = [tableView dequeueReusableCellWithIdentifier:@"YYGroupCell" forIndexPath:indexPath];
-    YYAssetCollection *assetCollection = self.dataArray[indexPath.row];
+    id obj = self.dataArray[indexPath.row];
+    YYAssetCollection *assetCollection;
+    if ([obj isKindOfClass:[PHAssetCollection class]]) {
+        assetCollection = [[YYAssetCollection alloc] initWithPHAssetCollection:obj mediaType:self.mediaType];
+        [self.dataArray replaceObjectAtIndex:indexPath.row withObject:assetCollection];
+    }else if ([obj isKindOfClass:[YYAssetCollection class]]) {
+        assetCollection = (YYAssetCollection *)obj;
+    }
+    
     NSString *groupName = @"";
     if (assetCollection.assetCollection.assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumUserLibrary) {
         groupName = [NSString stringWithFormat:@"相机胶卷（%ld）",assetCollection.count];

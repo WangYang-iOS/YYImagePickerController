@@ -9,8 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <Photos/Photos.h>
 
-@class YYAssetCollection;
-
 @interface YYData : NSObject
 /**
  根据mediaType获取相册资源
@@ -22,7 +20,7 @@
  @param callback callback description
  */
 + (void)allMediaDataSourceWithMediaType:(PHAssetMediaType)mediaType
-                               callback:(void(^)(NSMutableArray<YYAssetCollection *>*array))callback;
+                               callback:(void(^)(NSMutableArray<PHAssetCollection *>*array))callback;
 
 /**
  根据mediaType获取每个assetCollection中的相片或视频

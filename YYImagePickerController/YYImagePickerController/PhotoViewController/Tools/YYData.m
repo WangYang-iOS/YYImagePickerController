@@ -7,7 +7,6 @@
 //
 
 #import "YYData.h"
-#import "YYAssetCollection.h"
 
 @implementation YYData
 
@@ -20,7 +19,7 @@
  @param mediaType mediaType description
  @param callback callback description
  */
-+ (void)allMediaDataSourceWithMediaType:(PHAssetMediaType)mediaType callback:(void(^)(NSMutableArray<YYAssetCollection *>*array))callback {
++ (void)allMediaDataSourceWithMediaType:(PHAssetMediaType)mediaType callback:(void(^)(NSMutableArray<PHAssetCollection *>*array))callback {
     NSMutableArray *arrayResult = [NSMutableArray arrayWithCapacity:0];
     
 //    PHFetchOptions *options = [PHFetchOptions new];
@@ -59,12 +58,21 @@
     //用户创建的相册
     PHFetchResult *userAlbums = [PHCollectionList fetchTopLevelUserCollectionsWithOptions:nil];
     
+    // 创建过滤器
+    PHFetchOptions *options = [[PHFetchOptions alloc] init];
+    options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
+    //根据mediaType筛选
+    if (mediaType > 0) {
+        options.predicate = [NSPredicate predicateWithFormat:@"mediaType = %d",mediaType];
+    }
+    
     for (NSInteger i = 0; i < smartAlbums.count; i++) {
         PHCollection *collection = smartAlbums[i];
         if ([collection isKindOfClass:[PHAssetCollection class]]) {
             PHAssetCollection *assetCollection = (PHAssetCollection *)collection;
-            YYAssetCollection *collection = [[YYAssetCollection alloc] initWithPHAssetCollection:assetCollection mediaType:mediaType];
-            if (collection.count > 0) {
+            
+            PHFetchResult *assetsFetchResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:options];
+            if (assetsFetchResult.count > 0) {
                 [arrayResult addObject:collection];
             }
         }
@@ -73,8 +81,8 @@
         PHCollection *collection = recentAlbums[i];
         if ([collection isKindOfClass:[PHAssetCollection class]]) {
             PHAssetCollection *assetCollection = (PHAssetCollection *)collection;
-            YYAssetCollection *collection = [[YYAssetCollection alloc] initWithPHAssetCollection:assetCollection mediaType:mediaType];
-            if (collection.count > 0) {
+            PHFetchResult *assetsFetchResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:options];
+            if (assetsFetchResult.count > 0) {
                 [arrayResult addObject:collection];
             }
         }
@@ -83,8 +91,8 @@
         PHCollection *collection = userAlbums[i];
         if ([collection isKindOfClass:[PHAssetCollection class]]) {
             PHAssetCollection *assetCollection = (PHAssetCollection *)collection;
-            YYAssetCollection *collection = [[YYAssetCollection alloc] initWithPHAssetCollection:assetCollection mediaType:mediaType];
-            if (collection.count > 0) {
+            PHFetchResult *assetsFetchResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:options];
+            if (assetsFetchResult.count > 0) {
                 [arrayResult addObject:collection];
             }
         }

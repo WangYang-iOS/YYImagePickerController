@@ -38,18 +38,6 @@
         self.count = assetsFetchResult.count;
         PHAsset *asset = [assetsFetchResult lastObject];
         self.lastAsset = asset;
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (!self.coverImage) {
-                [YYData imageHighQualityFormatFromPHAsset:asset imageSize:CGSizeMake(200, 200) complete:^(UIImage *image) {
-                    if (image) {
-                        self.coverImage = image;
-                    }else {
-                        self.coverImage = [UIImage imageNamed:@"ic_PH_default"];
-                    }
-                }];
-            }
-        });
     }
     return self;
 }

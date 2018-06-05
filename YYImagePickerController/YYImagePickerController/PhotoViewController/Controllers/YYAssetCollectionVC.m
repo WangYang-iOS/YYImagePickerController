@@ -22,24 +22,29 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    
     [self.collectionView registerNib:[UINib nibWithNibName:@"YYAssetCell" bundle:nil] forCellWithReuseIdentifier:@"YYAssetCell"];
     
     NSMutableArray *array = [YYData allAssetsInAssetCollection:self.assetCollection.assetCollection mediaType:self.mediaType];
-    [array enumerateObjectsUsingBlock:^(PHAsset *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        YYAsset *asset = [[YYAsset alloc] initWithPHAsset:obj];
-        [self.dataArray addObject:asset];
-    }];
+    self.dataArray = array;
     [self.collectionView reloadData];
 }
-
-
 
 #pragma mark -
 #pragma mark - UICollectionViewDataSource
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     YYAssetCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"YYAssetCell" forIndexPath:indexPath];
-    __block YYAsset *asset = self.dataArray[indexPath.item];
+    id obj = self.dataArray[indexPath.item];
+    __block YYAsset *asset;
+    if ([obj isKindOfClass:[PHAsset class]]) {
+        asset = [[YYAsset alloc] initWithPHAsset:obj];
+        [self.dataArray replaceObjectAtIndex:indexPath.row withObject:asset];
+    }else if ([obj isKindOfClass:[YYAsset class]]) {
+        asset = (YYAsset *)obj;
+    }
+    
     if (asset.coverImage) {
         [cell layoutAssetCell:asset.coverImage timeLength:asset.timeLength isSelected:asset.selected];
     }else {
@@ -50,6 +55,7 @@
             }
         }];
     }
+    
     cell.callback = ^(UIButton *button) {
         button.selected = !button.selected;
         asset.selected = !asset.selected;
@@ -93,6 +99,10 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)dealloc {
+    NSLog(@"%@", [NSString stringWithFormat:@"%@释放了",NSStringFromClass([self class])]);
 }
 
 @end
