@@ -7,7 +7,8 @@
 //
 
 #import "ViewController.h"
-
+#import "YYImagePickerController.h"
+#import "YYGroupViewController.h"
 @interface ViewController ()
 
 @end
@@ -16,14 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[YYGroupViewController new]] animated:YES completion:nil];
 }
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 
 @end

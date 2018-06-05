@@ -8,6 +8,23 @@
 
 /* Begin PBXBuildFile section */
 		D13C06302090725300F60ACC /* YYImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = D13C062F2090725300F60ACC /* YYImagePickerController.m */; };
+		D13EEC5920C637EF00B366BE /* YYImagePickerController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D13EEC5820C637EF00B366BE /* YYImagePickerController.xib */; };
+		D13EEC5F20C6397B00B366BE /* YYGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D13EEC5E20C6397B00B366BE /* YYGroupViewController.m */; };
+		D13EEC6320C6399600B366BE /* YYTools.m in Sources */ = {isa = PBXBuildFile; fileRef = D13EEC6220C6399600B366BE /* YYTools.m */; };
+		D13EEC6620C63A7000B366BE /* YYData.m in Sources */ = {isa = PBXBuildFile; fileRef = D13EEC6520C63A7000B366BE /* YYData.m */; };
+		D13EEC6920C63AB300B366BE /* YYAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = D13EEC6820C63AB300B366BE /* YYAsset.m */; };
+		D13EEC6C20C63AC700B366BE /* YYAssetCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = D13EEC6B20C63AC700B366BE /* YYAssetCollection.m */; };
+		D13EEC6F20C641ED00B366BE /* YYGroupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D13EEC6E20C641ED00B366BE /* YYGroupViewController.xib */; };
+		D13EEC7320C642CD00B366BE /* YYGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D13EEC7120C642CD00B366BE /* YYGroupCell.m */; };
+		D13EEC7420C642CD00B366BE /* YYGroupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D13EEC7220C642CD00B366BE /* YYGroupCell.xib */; };
+		D13EEC7820C659E100B366BE /* YYAssetCollectionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D13EEC7620C659E100B366BE /* YYAssetCollectionVC.m */; };
+		D13EEC7920C659E100B366BE /* YYAssetCollectionVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D13EEC7720C659E100B366BE /* YYAssetCollectionVC.xib */; };
+		D13EEC7D20C65F5F00B366BE /* YYAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D13EEC7B20C65F5F00B366BE /* YYAssetCell.m */; };
+		D13EEC7E20C65F5F00B366BE /* YYAssetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D13EEC7C20C65F5F00B366BE /* YYAssetCell.xib */; };
+		D13EEC8420C670B000B366BE /* icon_yy_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D13EEC8020C670B000B366BE /* icon_yy_selected@2x.png */; };
+		D13EEC8520C670B000B366BE /* icon_yy_selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D13EEC8120C670B000B366BE /* icon_yy_selected@3x.png */; };
+		D13EEC8620C670B000B366BE /* icon_yy_unSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D13EEC8220C670B000B366BE /* icon_yy_unSelected@2x.png */; };
+		D13EEC8720C670B000B366BE /* icon_yy_unSelected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D13EEC8320C670B000B366BE /* icon_yy_unSelected@3x.png */; };
 		D1F99777209071F500BE7996 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D1F99776209071F500BE7996 /* AppDelegate.m */; };
 		D1F9977A209071F500BE7996 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1F99779209071F500BE7996 /* ViewController.m */; };
 		D1F9977D209071F500BE7996 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D1F9977B209071F500BE7996 /* Main.storyboard */; };
@@ -19,6 +36,31 @@
 /* Begin PBXFileReference section */
 		D13C062E2090725300F60ACC /* YYImagePickerController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYImagePickerController.h; sourceTree = "<group>"; };
 		D13C062F2090725300F60ACC /* YYImagePickerController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYImagePickerController.m; sourceTree = "<group>"; };
+		D13EEC5820C637EF00B366BE /* YYImagePickerController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YYImagePickerController.xib; sourceTree = "<group>"; };
+		D13EEC5D20C6397B00B366BE /* YYGroupViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYGroupViewController.h; sourceTree = "<group>"; };
+		D13EEC5E20C6397B00B366BE /* YYGroupViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYGroupViewController.m; sourceTree = "<group>"; };
+		D13EEC6120C6399600B366BE /* YYTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYTools.h; sourceTree = "<group>"; };
+		D13EEC6220C6399600B366BE /* YYTools.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYTools.m; sourceTree = "<group>"; };
+		D13EEC6420C63A7000B366BE /* YYData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYData.h; sourceTree = "<group>"; };
+		D13EEC6520C63A7000B366BE /* YYData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYData.m; sourceTree = "<group>"; };
+		D13EEC6720C63AB300B366BE /* YYAsset.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYAsset.h; sourceTree = "<group>"; };
+		D13EEC6820C63AB300B366BE /* YYAsset.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYAsset.m; sourceTree = "<group>"; };
+		D13EEC6A20C63AC700B366BE /* YYAssetCollection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYAssetCollection.h; sourceTree = "<group>"; };
+		D13EEC6B20C63AC700B366BE /* YYAssetCollection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYAssetCollection.m; sourceTree = "<group>"; };
+		D13EEC6E20C641ED00B366BE /* YYGroupViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YYGroupViewController.xib; sourceTree = "<group>"; };
+		D13EEC7020C642CD00B366BE /* YYGroupCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYGroupCell.h; sourceTree = "<group>"; };
+		D13EEC7120C642CD00B366BE /* YYGroupCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYGroupCell.m; sourceTree = "<group>"; };
+		D13EEC7220C642CD00B366BE /* YYGroupCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YYGroupCell.xib; sourceTree = "<group>"; };
+		D13EEC7520C659E100B366BE /* YYAssetCollectionVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYAssetCollectionVC.h; sourceTree = "<group>"; };
+		D13EEC7620C659E100B366BE /* YYAssetCollectionVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYAssetCollectionVC.m; sourceTree = "<group>"; };
+		D13EEC7720C659E100B366BE /* YYAssetCollectionVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YYAssetCollectionVC.xib; sourceTree = "<group>"; };
+		D13EEC7A20C65F5F00B366BE /* YYAssetCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYAssetCell.h; sourceTree = "<group>"; };
+		D13EEC7B20C65F5F00B366BE /* YYAssetCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYAssetCell.m; sourceTree = "<group>"; };
+		D13EEC7C20C65F5F00B366BE /* YYAssetCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YYAssetCell.xib; sourceTree = "<group>"; };
+		D13EEC8020C670B000B366BE /* icon_yy_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_yy_selected@2x.png"; sourceTree = "<group>"; };
+		D13EEC8120C670B000B366BE /* icon_yy_selected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_yy_selected@3x.png"; sourceTree = "<group>"; };
+		D13EEC8220C670B000B366BE /* icon_yy_unSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_yy_unSelected@2x.png"; sourceTree = "<group>"; };
+		D13EEC8320C670B000B366BE /* icon_yy_unSelected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_yy_unSelected@3x.png"; sourceTree = "<group>"; };
 		D1F99772209071F500BE7996 /* YYImagePickerController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YYImagePickerController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1F99775209071F500BE7996 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D1F99776209071F500BE7996 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -45,8 +87,72 @@
 		D11F50F820B6978E00DC54A2 /* PhotoViewController */ = {
 			isa = PBXGroup;
 			children = (
+				D13EEC7F20C670B000B366BE /* icons */,
+				D13EEC6020C6398900B366BE /* Tools */,
+				D13EEC5C20C6396100B366BE /* Controllers */,
+				D13EEC5A20C6396100B366BE /* Models */,
+				D13EEC5B20C6396100B366BE /* Views */,
 			);
 			path = PhotoViewController;
+			sourceTree = "<group>";
+		};
+		D13EEC5A20C6396100B366BE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D13EEC6720C63AB300B366BE /* YYAsset.h */,
+				D13EEC6820C63AB300B366BE /* YYAsset.m */,
+				D13EEC6A20C63AC700B366BE /* YYAssetCollection.h */,
+				D13EEC6B20C63AC700B366BE /* YYAssetCollection.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		D13EEC5B20C6396100B366BE /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D13EEC7020C642CD00B366BE /* YYGroupCell.h */,
+				D13EEC7120C642CD00B366BE /* YYGroupCell.m */,
+				D13EEC7220C642CD00B366BE /* YYGroupCell.xib */,
+				D13EEC7A20C65F5F00B366BE /* YYAssetCell.h */,
+				D13EEC7B20C65F5F00B366BE /* YYAssetCell.m */,
+				D13EEC7C20C65F5F00B366BE /* YYAssetCell.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D13EEC5C20C6396100B366BE /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D13EEC5D20C6397B00B366BE /* YYGroupViewController.h */,
+				D13EEC5E20C6397B00B366BE /* YYGroupViewController.m */,
+				D13EEC6E20C641ED00B366BE /* YYGroupViewController.xib */,
+				D13EEC7520C659E100B366BE /* YYAssetCollectionVC.h */,
+				D13EEC7620C659E100B366BE /* YYAssetCollectionVC.m */,
+				D13EEC7720C659E100B366BE /* YYAssetCollectionVC.xib */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		D13EEC6020C6398900B366BE /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				D13EEC6120C6399600B366BE /* YYTools.h */,
+				D13EEC6220C6399600B366BE /* YYTools.m */,
+				D13EEC6420C63A7000B366BE /* YYData.h */,
+				D13EEC6520C63A7000B366BE /* YYData.m */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		D13EEC7F20C670B000B366BE /* icons */ = {
+			isa = PBXGroup;
+			children = (
+				D13EEC8020C670B000B366BE /* icon_yy_selected@2x.png */,
+				D13EEC8120C670B000B366BE /* icon_yy_selected@3x.png */,
+				D13EEC8220C670B000B366BE /* icon_yy_unSelected@2x.png */,
+				D13EEC8320C670B000B366BE /* icon_yy_unSelected@3x.png */,
+			);
+			path = icons;
 			sourceTree = "<group>";
 		};
 		D1F99769209071F500BE7996 = {
@@ -75,6 +181,7 @@
 				D1F99779209071F500BE7996 /* ViewController.m */,
 				D13C062E2090725300F60ACC /* YYImagePickerController.h */,
 				D13C062F2090725300F60ACC /* YYImagePickerController.m */,
+				D13EEC5820C637EF00B366BE /* YYImagePickerController.xib */,
 				D1F9977B209071F500BE7996 /* Main.storyboard */,
 				D1F9977E209071F500BE7996 /* Assets.xcassets */,
 				D1F99780209071F500BE7996 /* LaunchScreen.storyboard */,
@@ -141,9 +248,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D13EEC8720C670B000B366BE /* icon_yy_unSelected@3x.png in Resources */,
+				D13EEC8420C670B000B366BE /* icon_yy_selected@2x.png in Resources */,
+				D13EEC8520C670B000B366BE /* icon_yy_selected@3x.png in Resources */,
+				D13EEC6F20C641ED00B366BE /* YYGroupViewController.xib in Resources */,
+				D13EEC8620C670B000B366BE /* icon_yy_unSelected@2x.png in Resources */,
 				D1F99782209071F500BE7996 /* LaunchScreen.storyboard in Resources */,
+				D13EEC7E20C65F5F00B366BE /* YYAssetCell.xib in Resources */,
 				D1F9977F209071F500BE7996 /* Assets.xcassets in Resources */,
+				D13EEC7920C659E100B366BE /* YYAssetCollectionVC.xib in Resources */,
+				D13EEC7420C642CD00B366BE /* YYGroupCell.xib in Resources */,
 				D1F9977D209071F500BE7996 /* Main.storyboard in Resources */,
+				D13EEC5920C637EF00B366BE /* YYImagePickerController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -155,9 +271,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				D1F9977A209071F500BE7996 /* ViewController.m in Sources */,
+				D13EEC6C20C63AC700B366BE /* YYAssetCollection.m in Sources */,
+				D13EEC5F20C6397B00B366BE /* YYGroupViewController.m in Sources */,
+				D13EEC6620C63A7000B366BE /* YYData.m in Sources */,
 				D1F99785209071F500BE7996 /* main.m in Sources */,
 				D1F99777209071F500BE7996 /* AppDelegate.m in Sources */,
 				D13C06302090725300F60ACC /* YYImagePickerController.m in Sources */,
+				D13EEC7320C642CD00B366BE /* YYGroupCell.m in Sources */,
+				D13EEC6920C63AB300B366BE /* YYAsset.m in Sources */,
+				D13EEC7820C659E100B366BE /* YYAssetCollectionVC.m in Sources */,
+				D13EEC7D20C65F5F00B366BE /* YYAssetCell.m in Sources */,
+				D13EEC6320C6399600B366BE /* YYTools.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
