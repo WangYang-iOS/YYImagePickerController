@@ -36,7 +36,14 @@
         self.bottomView.hidden = NO;
         self.timeLabel.text = timeLength;
     }
+    self.selectButton.hidden = NO;
     self.selectButton.selected = isSelected;
+}
+
+- (void)layoutCameraAssetCell:(UIImage *)image {
+    self.photoImgView.image = image;
+    self.bottomView.hidden = YES;
+    self.selectButton.hidden = YES;
 }
 
 @end

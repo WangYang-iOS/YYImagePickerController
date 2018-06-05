@@ -21,15 +21,6 @@
             timeLength = [self getNewTimeFromDurationSecond:timeLength.integerValue];
             self.timeLength = timeLength;
         }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (!self.coverImage) {
-                [YYData imageHighQualityFormatFromPHAsset:asset imageSize:CGSizeMake(200, 200) complete:^(UIImage *image) {
-                    if (image) {
-                        self.coverImage = image;
-                    }
-                }];
-            }
-        });
     }
     return self;
 }

@@ -12,6 +12,26 @@
 
 /**
  根据mediaType获取相册资源
+ 
+ AlbumRegular //用户在 Photos 中创建的相册，也就是我所谓的逻辑相册
+ AlbumSyncedEvent //使用 iTunes 从 Photos 照片库或者 iPhoto 照片库同步过来的事件。然而，在iTunes 12 以及iOS 9.0 beta4上，选用该类型没法获取同步的事件相册，而必须使用AlbumSyncedAlbum。
+ AlbumSyncedFaces //使用 iTunes 从 Photos 照片库或者 iPhoto 照片库同步的人物相册。
+ AlbumSyncedAlbum //做了 AlbumSyncedEvent 应该做的事
+ AlbumImported //从相机或是外部存储导入的相册，完全没有这方面的使用经验，没法验证。
+ AlbumMyPhotoStream //用户的 iCloud 照片流
+ AlbumCloudShared //用户使用 iCloud 共享的相册
+ SmartAlbumGeneric //文档解释为非特殊类型的相册，主要包括从 iPhoto 同步过来的相册。由于本人的 iPhoto 已被 Photos 替代，无法验证。不过，在我的 iPad mini 上是无法获取的，而下面类型的相册，尽管没有包含照片或视频，但能够获取到。
+ SmartAlbumPanoramas //相机拍摄的全景照片
+ SmartAlbumVideos //相机拍摄的视频
+ SmartAlbumFavorites //收藏文件夹
+ SmartAlbumTimelapses //延时视频文件夹，同时也会出现在视频文件夹中
+ SmartAlbumAllHidden //包含隐藏照片或视频的文件夹
+ SmartAlbumRecentlyAdded //相机近期拍摄的照片或视频
+ SmartAlbumBursts //连拍模式拍摄的照片，在 iPad mini 上按住快门不放就可以了，但是照片依然没有存放在这个文件夹下，而是在相机相册里。
+ SmartAlbumSlomoVideos //Slomo 是 slow motion 的缩写，高速摄影慢动作解析，在该模式下，iOS 设备以120帧拍摄。不过我的 iPad mini 不支持，没法验证。
+ SmartAlbumUserLibrary //这个命名最神奇了，就是相机相册，所有相机拍摄的照片或视频都会出现在该相册中，而且使用其他应用保存的照片也会出现在这里。
+ Any //包含所有类型
+ 
  mediaType = 0;                           图片和视频
  mediaType = PHAssetMediaTypeImage        图片
  mediaType = PHAssetMediaTypeVideo        视频
@@ -21,36 +41,6 @@
  */
 + (void)allMediaDataSourceWithMediaType:(PHAssetMediaType)mediaType callback:(void(^)(NSMutableArray<PHAssetCollection *>*array))callback {
     NSMutableArray *arrayResult = [NSMutableArray arrayWithCapacity:0];
-    
-//    PHFetchOptions *options = [PHFetchOptions new];
-//    PHFetchResult *topLevelUserCollections = [PHAssetCollection fetchTopLevelUserCollectionsWithOptions:options];
-//    /**
-//      AlbumRegular //用户在 Photos 中创建的相册，也就是我所谓的逻辑相册
-//      AlbumSyncedEvent //使用 iTunes 从 Photos 照片库或者 iPhoto 照片库同步过来的事件。然而，在iTunes 12 以及iOS 9.0 beta4上，选用该类型没法获取同步的事件相册，而必须使用AlbumSyncedAlbum。
-//      AlbumSyncedFaces //使用 iTunes 从 Photos 照片库或者 iPhoto 照片库同步的人物相册。
-//      AlbumSyncedAlbum //做了 AlbumSyncedEvent 应该做的事
-//      AlbumImported //从相机或是外部存储导入的相册，完全没有这方面的使用经验，没法验证。
-//      AlbumMyPhotoStream //用户的 iCloud 照片流
-//      AlbumCloudShared //用户使用 iCloud 共享的相册
-//      SmartAlbumGeneric //文档解释为非特殊类型的相册，主要包括从 iPhoto 同步过来的相册。由于本人的 iPhoto 已被 Photos 替代，无法验证。不过，在我的 iPad mini 上是无法获取的，而下面类型的相册，尽管没有包含照片或视频，但能够获取到。
-//      SmartAlbumPanoramas //相机拍摄的全景照片
-//      SmartAlbumVideos //相机拍摄的视频
-//      SmartAlbumFavorites //收藏文件夹
-//      SmartAlbumTimelapses //延时视频文件夹，同时也会出现在视频文件夹中
-//      SmartAlbumAllHidden //包含隐藏照片或视频的文件夹
-//      SmartAlbumRecentlyAdded //相机近期拍摄的照片或视频
-//      SmartAlbumBursts //连拍模式拍摄的照片，在 iPad mini 上按住快门不放就可以了，但是照片依然没有存放在这个文件夹下，而是在相机相册里。
-//      SmartAlbumSlomoVideos //Slomo 是 slow motion 的缩写，高速摄影慢动作解析，在该模式下，iOS 设备以120帧拍摄。不过我的 iPad mini 不支持，没法验证。
-//      SmartAlbumUserLibrary //这个命名最神奇了，就是相机相册，所有相机拍摄的照片或视频都会出现在该相册中，而且使用其他应用保存的照片也会出现在这里。
-//      Any //包含所有类型
-//     }
-//     */
-//    PHAssetCollectionSubtype subType = PHAssetCollectionSubtypeAlbumRegular;
-//    PHFetchResult *smartAlbumsResult = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum
-//                                                                                subtype:subType
-//                                                                                options:options];
-    
-    
     // 系统相册 相机拍摄的所有图片和视频
     PHFetchResult *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeSmartAlbumUserLibrary options:nil];
     //最近添加的照片或视频
@@ -124,7 +114,6 @@
     return array;
 }
 
-
 /**
  根据size获取asset高清图
  如果要获取asset原图 imageSize = PHImageManagerMaximumSize
@@ -153,10 +142,10 @@
 + (PHImageRequestID)imageHighQualityFormatFromPHAsset:(PHAsset *)asset imageSize:(CGSize)imageSize complete:(void (^)(UIImage *image))complete {
     if (asset.mediaType == PHAssetMediaTypeImage || asset.mediaType == PHAssetMediaTypeVideo) {
         PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
-        options.resizeMode = PHImageRequestOptionsResizeModeFast;
-        //        options.version = PHImageRequestOptionsVersionCurrent;
-        //        options.deliveryMode = PHImageRequestOptionsDeliveryModeFastFormat;
-        //        options.synchronous = YES;
+//        options.resizeMode = PHImageRequestOptionsResizeModeFast;
+//        options.version = PHImageRequestOptionsVersionCurrent;
+        options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+//        options.synchronous = YES;
         PHImageRequestID imageRequestID = [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:imageSize contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
             //[[info objectForKey:PHImageResultIsDegradedKey] boolValue] yes 返回的是缩略图 No返回的是原图
             BOOL downloadFinined = ![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey];
@@ -165,6 +154,9 @@
                     if (complete) {
                         complete (result);
                     }
+                    NSLog(@"result Key== %@",result);
+                }else {
+                    NSLog(@"result == %@",result);
                 }
             }
         }];

@@ -12,5 +12,6 @@
 @interface YYGroupViewController : UIViewController
 
 @property (nonatomic, assign) PHAssetMediaType mediaType;
+@property (nonatomic, assign) BOOL isCamera;
 
 @end

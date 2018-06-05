@@ -14,4 +14,7 @@
 @interface YYAssetCollectionVC : UIViewController
 @property (nonatomic, strong) YYAssetCollection *assetCollection;
 @property (nonatomic, assign) PHAssetMediaType mediaType;
+
+@property (nonatomic, assign) BOOL isCamera;
+
 @end

@@ -14,4 +14,6 @@
 
 - (void)layoutAssetCell:(UIImage *)image timeLength:(NSString *)timeLength isSelected:(BOOL)isSelected;
 
+- (void)layoutCameraAssetCell:(UIImage *)image;
+
 @end

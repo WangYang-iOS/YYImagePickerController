@@ -22,35 +22,30 @@
     [super viewDidLoad];
     self.navigationController.navigationBar.translucent = NO;
     self.navigationItem.title = @"本地相册";
+    
     [self.tableView registerNib:[UINib nibWithNibName:@"YYGroupCell" bundle:nil] forCellReuseIdentifier:@"YYGroupCell"];
     self.mediaType = PHAssetMediaTypeUnknown;
-    [YYData allMediaDataSourceWithMediaType:self.mediaType callback:^(NSMutableArray<PHAssetCollection *> *array) {
-        self.dataArray = array;
-        [self.tableView reloadData];
-        
-        if (array.count > 0) {
-            id obj = self.dataArray.firstObject;
-            YYAssetCollection *assetCollection;
-            if ([obj isKindOfClass:[PHAssetCollection class]]) {
-                assetCollection = [[YYAssetCollection alloc] initWithPHAssetCollection:obj mediaType:self.mediaType];
-                [self.dataArray addObject:assetCollection];
-            }else if ([obj isKindOfClass:[YYAssetCollection class]]) {
-                assetCollection = (YYAssetCollection *)obj;
+    self.isCamera = YES;
+    
+    PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
+    if (status == PHAuthorizationStatusNotDetermined) {
+        [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+            if (status == PHAuthorizationStatusAuthorized) {
+                [self allGroupCollection];
+            }else if (status == PHAuthorizationStatusDenied) {
+                //被拒绝 弹出提示
+            }else if (status == PHAuthorizationStatusRestricted) {
+                //受限制 例如家长模式
             }
-            
-            NSString *groupName = @"";
-            if (assetCollection.assetCollection.assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumUserLibrary) {
-                groupName = [NSString stringWithFormat:@"相机胶卷（%ld）",assetCollection.count];
-            }else {
-                groupName = [NSString stringWithFormat:@"%@（%ld）",assetCollection.assetCollection.localizedTitle,assetCollection.count];;
-            }
-            YYAssetCollectionVC *vc = [YYAssetCollectionVC new];
-            vc.navigationItem.title = groupName;
-            vc.assetCollection = assetCollection;
-            vc.mediaType = self.mediaType;
-            [self.navigationController pushViewController:vc animated:NO];
-        }
-    }];
+        }];
+    }else if (status == PHAuthorizationStatusAuthorized) {
+        [self allGroupCollection];
+    }else if (status == PHAuthorizationStatusDenied) {
+        //被拒绝 弹出提示
+    }else if (status == PHAuthorizationStatusRestricted) {
+        //受限制 例如家长模式
+    }
+    
 }
 
 #pragma mark -
@@ -58,6 +53,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     YYGroupCell *cell = [tableView dequeueReusableCellWithIdentifier:@"YYGroupCell" forIndexPath:indexPath];
+    
     id obj = self.dataArray[indexPath.row];
     YYAssetCollection *assetCollection;
     if ([obj isKindOfClass:[PHAssetCollection class]]) {
@@ -110,6 +106,7 @@
     vc.navigationItem.title = groupName;
     vc.assetCollection = assetCollection;
     vc.mediaType = self.mediaType;
+    vc.isCamera = self.isCamera;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -119,6 +116,40 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return 0.01;
+}
+
+#pragma mark -
+#pragma mark - paravite Methods
+
+- (void)allGroupCollection {
+    [YYData allMediaDataSourceWithMediaType:self.mediaType callback:^(NSMutableArray<PHAssetCollection *> *array) {
+        self.dataArray = array;
+        [self.tableView reloadData];
+        
+        if (array.count > 0) {
+            id obj = self.dataArray.firstObject;
+            YYAssetCollection *assetCollection;
+            if ([obj isKindOfClass:[PHAssetCollection class]]) {
+                assetCollection = [[YYAssetCollection alloc] initWithPHAssetCollection:obj mediaType:self.mediaType];
+                [self.dataArray addObject:assetCollection];
+            }else if ([obj isKindOfClass:[YYAssetCollection class]]) {
+                assetCollection = (YYAssetCollection *)obj;
+            }
+            
+            NSString *groupName = @"";
+            if (assetCollection.assetCollection.assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumUserLibrary) {
+                groupName = [NSString stringWithFormat:@"相机胶卷（%ld）",assetCollection.count];
+            }else {
+                groupName = [NSString stringWithFormat:@"%@（%ld）",assetCollection.assetCollection.localizedTitle,assetCollection.count];
+            }
+            YYAssetCollectionVC *vc = [YYAssetCollectionVC new];
+            vc.navigationItem.title = groupName;
+            vc.assetCollection = assetCollection;
+            vc.mediaType = self.mediaType;
+            vc.isCamera = self.isCamera;
+            [self.navigationController pushViewController:vc animated:NO];
+        }
+    }];
 }
 
 #pragma mark -

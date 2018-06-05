@@ -27,6 +27,12 @@
     [self.collectionView registerNib:[UINib nibWithNibName:@"YYAssetCell" bundle:nil] forCellWithReuseIdentifier:@"YYAssetCell"];
     
     NSMutableArray *array = [YYData allAssetsInAssetCollection:self.assetCollection.assetCollection mediaType:self.mediaType];
+    if (self.isCamera) {
+        YYAsset *asset = [[YYAsset alloc] init];
+        asset.isCamera = YES;
+        asset.cameraImage = [UIImage imageNamed:@"icon_yy_camera"];
+        [array insertObject:asset atIndex:0];
+    }
     self.dataArray = array;
     [self.collectionView reloadData];
 }
@@ -44,16 +50,21 @@
     }else if ([obj isKindOfClass:[YYAsset class]]) {
         asset = (YYAsset *)obj;
     }
-    
-    if (asset.coverImage) {
-        [cell layoutAssetCell:asset.coverImage timeLength:asset.timeLength isSelected:asset.selected];
+    //判断是否是相机位
+    if (asset.isCamera) {
+        [cell layoutCameraAssetCell:asset.cameraImage];
     }else {
-        [YYData imageHighQualityFormatFromPHAsset:asset.asset imageSize:CGSizeMake(200, 200) complete:^(UIImage *image) {
-            if (image) {
-                asset.coverImage = image;
-                [cell layoutAssetCell:image timeLength:asset.timeLength isSelected:asset.selected];
-            }
-        }];
+        if (asset.coverImage) {
+            [cell layoutAssetCell:asset.coverImage timeLength:asset.timeLength isSelected:asset.selected];
+        }else {
+            PHImageRequestID requestID = [YYData imageHighQualityFormatFromPHAsset:asset.asset imageSize:CGSizeMake(200, 200) complete:^(UIImage *image) {
+                if (image) {
+                    asset.coverImage = image;
+                    [cell layoutAssetCell:image timeLength:asset.timeLength isSelected:asset.selected];
+                }
+            }];
+            asset.requestID = requestID;
+        }
     }
     
     cell.callback = ^(UIButton *button) {
@@ -83,9 +94,20 @@
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
+    YYAsset *asset = self.dataArray[indexPath.item];
+    //判断点击的是否是相机位
+    if (asset.isCamera) {
+        if (self.mediaType == PHAssetMediaTypeImage) {
+            //拍照
+        }else if (self.mediaType == PHAssetMediaTypeVideo || self.mediaType == PHAssetMediaTypeAudio) {
+            //视频
+        }else {
+            //拍照或者视频
+        }
+    }else {
+        //预览
+    }
 }
-
 
 #pragma mark -
 #pragma mark - lazy
