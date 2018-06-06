@@ -15,7 +15,13 @@
 
 @interface YYAssetCollectionVC ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UILabel *countLabel;
+@property (weak, nonatomic) IBOutlet UIButton *sureButton;
+@property (weak, nonatomic) IBOutlet UIButton *previewButton;
 @property (nonatomic, strong) NSMutableArray *dataArray;
+@property (nonatomic, assign) BOOL isSingle;//是否单选
+@property (nonatomic, strong) NSIndexPath *lastIndexPath;
+@property (nonatomic, strong) NSMutableArray *selectArray;
 @end
 
 @implementation YYAssetCollectionVC
@@ -23,8 +29,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationController.navigationBar.tintColor = [UIColor blackColor];
-    
     [self.collectionView registerNib:[UINib nibWithNibName:@"YYAssetCell" bundle:nil] forCellWithReuseIdentifier:@"YYAssetCell"];
+    
+    self.isSingle = (self.maxCount == 1);
+    self.countLabel.text = [NSString stringWithFormat:@"已选择 %lu/%ld",(unsigned long)self.selectArray.count,(long)self.maxCount];
     
     NSMutableArray *array = [YYData allAssetsInAssetCollection:self.assetCollection.assetCollection mediaType:self.mediaType];
     if (self.isCamera) {
@@ -68,8 +76,44 @@
     }
     
     cell.callback = ^(UIButton *button) {
-        button.selected = !button.selected;
-        asset.selected = !asset.selected;
+        if (self.isSingle) {
+            //单选
+            if ([self.selectArray containsObject:asset]) {
+                button.selected = !button.selected;
+                asset.selected = !asset.selected;
+                [self.selectArray removeObject:asset];
+            }else {
+                if (self.selectArray.count > 0) {
+                    YYAsset *exsitAsset = self.selectArray.firstObject;
+                    exsitAsset.selected = !exsitAsset.selected;
+                    [self.selectArray removeAllObjects];
+                    if (self.lastIndexPath) {
+                        [self.collectionView reloadItemsAtIndexPaths:@[self.lastIndexPath]];
+                    }
+                }
+                
+                button.selected = !button.selected;
+                asset.selected = !asset.selected;
+                [self.selectArray addObject:asset];
+            }
+            self.lastIndexPath = indexPath;
+        }else {
+            //多选
+            if ([self.selectArray containsObject:asset]) {
+                button.selected = !button.selected;
+                asset.selected = !asset.selected;
+                [self.selectArray removeObject:asset];
+            }else {
+                if (self.selectArray.count == self.maxCount) {
+                    //不可再选了
+                }else {
+                    button.selected = !button.selected;
+                    asset.selected = !asset.selected;
+                    [self.selectArray addObject:asset];
+                }
+            }
+        }
+        self.countLabel.text = [NSString stringWithFormat:@"已选择 %lu/%ld",(unsigned long)self.selectArray.count,(long)self.maxCount];
     };
     return cell;
 }
@@ -110,6 +154,39 @@
 }
 
 #pragma mark -
+#pragma mark - interface
+
+- (IBAction)clickSureButton:(id)sender {
+    //确认
+    if (self.selectArray.count == 0) {
+        //请选择图片
+        return;
+    }
+    NSMutableArray *array = [NSMutableArray arrayWithCapacity:0];
+    if (self.mediaType == PHAssetMediaTypeImage) {
+        //只选择图片
+        for (int i = 0; i < self.selectArray.count; i++) {
+            YYAsset *asset = self.selectArray[i];
+            [array addObject:asset.coverImage];
+        }
+        if (self.callBack) {
+            self.callBack(array);
+        }
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }else if (self.mediaType == PHAssetMediaTypeVideo) {
+        //只选择视频
+    }
+}
+
+- (IBAction)clickPreviewButton:(id)sender {
+    //预览
+    if (self.selectArray.count == 0) {
+        //请选择图片
+        return;
+    }
+}
+
+#pragma mark -
 #pragma mark - lazy
 
 - (NSMutableArray *)dataArray {
@@ -117,6 +194,13 @@
         _dataArray = [NSMutableArray arrayWithCapacity:0];
     }
     return _dataArray;
+}
+
+- (NSMutableArray *)selectArray {
+    if (!_selectArray) {
+        _selectArray = [NSMutableArray arrayWithCapacity:0];
+    }
+    return _selectArray;
 }
 
 - (void)didReceiveMemoryWarning {

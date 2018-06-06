@@ -49,7 +49,6 @@
 
 @property (nonatomic, assign) PHImageRequestID requestID;
 
-
 - (YYAsset *)initWithPHAsset:(PHAsset *)asset;
 
 @end

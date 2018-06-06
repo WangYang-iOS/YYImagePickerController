@@ -154,9 +154,6 @@
                     if (complete) {
                         complete (result);
                     }
-                    NSLog(@"result Key== %@",result);
-                }else {
-                    NSLog(@"result == %@",result);
                 }
             }
         }];

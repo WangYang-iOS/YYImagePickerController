@@ -12,9 +12,13 @@
 @class YYAssetCollection;
 
 @interface YYAssetCollectionVC : UIViewController
+
+@property (nonatomic, copy) void (^callBack)(NSArray *array);
+
 @property (nonatomic, strong) YYAssetCollection *assetCollection;
 @property (nonatomic, assign) PHAssetMediaType mediaType;
 
 @property (nonatomic, assign) BOOL isCamera;
+@property (nonatomic, assign) NSInteger maxCount;
 
 @end

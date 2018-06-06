@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D116406F20C77C1A00BA0BA8 /* icon_yy_back@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D116406D20C77C1A00BA0BA8 /* icon_yy_back@3x.png */; };
+		D116407020C77C1A00BA0BA8 /* icon_yy_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D116406E20C77C1A00BA0BA8 /* icon_yy_back@2x.png */; };
 		D13C06302090725300F60ACC /* YYImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = D13C062F2090725300F60ACC /* YYImagePickerController.m */; };
 		D13EEC5920C637EF00B366BE /* YYImagePickerController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D13EEC5820C637EF00B366BE /* YYImagePickerController.xib */; };
 		D13EEC5F20C6397B00B366BE /* YYGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D13EEC5E20C6397B00B366BE /* YYGroupViewController.m */; };
@@ -36,6 +38,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D116406D20C77C1A00BA0BA8 /* icon_yy_back@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_yy_back@3x.png"; sourceTree = "<group>"; };
+		D116406E20C77C1A00BA0BA8 /* icon_yy_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_yy_back@2x.png"; sourceTree = "<group>"; };
 		D13C062E2090725300F60ACC /* YYImagePickerController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYImagePickerController.h; sourceTree = "<group>"; };
 		D13C062F2090725300F60ACC /* YYImagePickerController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYImagePickerController.m; sourceTree = "<group>"; };
 		D13EEC5820C637EF00B366BE /* YYImagePickerController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YYImagePickerController.xib; sourceTree = "<group>"; };
@@ -157,6 +161,8 @@
 				D13EEC8120C670B000B366BE /* icon_yy_selected@3x.png */,
 				D13EEC8220C670B000B366BE /* icon_yy_unSelected@2x.png */,
 				D13EEC8320C670B000B366BE /* icon_yy_unSelected@3x.png */,
+				D116406E20C77C1A00BA0BA8 /* icon_yy_back@2x.png */,
+				D116406D20C77C1A00BA0BA8 /* icon_yy_back@3x.png */,
 			);
 			path = icons;
 			sourceTree = "<group>";
@@ -254,6 +260,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D116406F20C77C1A00BA0BA8 /* icon_yy_back@3x.png in Resources */,
 				D13EEC8720C670B000B366BE /* icon_yy_unSelected@3x.png in Resources */,
 				D13EEC8A20C6831500B366BE /* icon_yy_camera@3x.png in Resources */,
 				D13EEC8420C670B000B366BE /* icon_yy_selected@2x.png in Resources */,
@@ -263,6 +270,7 @@
 				D1F99782209071F500BE7996 /* LaunchScreen.storyboard in Resources */,
 				D13EEC7E20C65F5F00B366BE /* YYAssetCell.xib in Resources */,
 				D13EEC8B20C6831500B366BE /* icon_yy_camera@2x.png in Resources */,
+				D116407020C77C1A00BA0BA8 /* icon_yy_back@2x.png in Resources */,
 				D1F9977F209071F500BE7996 /* Assets.xcassets in Resources */,
 				D13EEC7920C659E100B366BE /* YYAssetCollectionVC.xib in Resources */,
 				D13EEC7420C642CD00B366BE /* YYGroupCell.xib in Resources */,

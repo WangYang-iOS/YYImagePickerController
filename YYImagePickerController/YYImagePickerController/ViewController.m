@@ -17,7 +17,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[YYGroupViewController new]] animated:YES completion:nil];
+}
+- (IBAction)clickButton:(id)sender {
+    YYGroupViewController *vc = [YYGroupViewController new];
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:nil];
+    vc.callBack = ^(NSArray *array) {
+        //
+    };
 }
 
 @end

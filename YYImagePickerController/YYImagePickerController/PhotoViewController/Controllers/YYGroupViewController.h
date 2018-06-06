@@ -10,8 +10,10 @@
 #import <Photos/Photos.h>
 
 @interface YYGroupViewController : UIViewController
+@property (nonatomic, copy) void (^callBack)(NSArray *array);
 
 @property (nonatomic, assign) PHAssetMediaType mediaType;
 @property (nonatomic, assign) BOOL isCamera;
+@property (nonatomic, assign) NSInteger maxCount;
 
 @end

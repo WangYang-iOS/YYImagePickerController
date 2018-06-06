@@ -23,10 +23,17 @@
     self.navigationController.navigationBar.translucent = NO;
     self.navigationItem.title = @"本地相册";
     
-    [self.tableView registerNib:[UINib nibWithNibName:@"YYGroupCell" bundle:nil] forCellReuseIdentifier:@"YYGroupCell"];
-    self.mediaType = PHAssetMediaTypeUnknown;
-    self.isCamera = YES;
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(0, 0, 30, 44);
+    button.imageEdgeInsets = UIEdgeInsetsMake(0, - 19, 0, 0);
+    [button setImage:[UIImage imageNamed:@"icon_yy_back"] forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(clickBackButton) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     
+    [self.tableView registerNib:[UINib nibWithNibName:@"YYGroupCell" bundle:nil] forCellReuseIdentifier:@"YYGroupCell"];
+    self.mediaType = PHAssetMediaTypeImage;
+    self.isCamera = YES;
+    self.maxCount = 9;
     PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
     if (status == PHAuthorizationStatusNotDetermined) {
         [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
@@ -107,6 +114,8 @@
     vc.assetCollection = assetCollection;
     vc.mediaType = self.mediaType;
     vc.isCamera = self.isCamera;
+    vc.maxCount = self.maxCount;
+    vc.callBack = self.callBack;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -147,11 +156,25 @@
             vc.assetCollection = assetCollection;
             vc.mediaType = self.mediaType;
             vc.isCamera = self.isCamera;
+            vc.maxCount = self.maxCount;
+            __weak typeof(self) weakSelf = self;
+            vc.callBack = ^(NSArray *array) {
+                if (weakSelf.callBack) {
+                    weakSelf.callBack(array);
+                }
+            };
             [self.navigationController pushViewController:vc animated:NO];
         }
     }];
 }
 
+#pragma mark -
+#pragma mark - interface
+
+- (void)clickBackButton {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+                      
 #pragma mark -
 #pragma mark - lazy
 
