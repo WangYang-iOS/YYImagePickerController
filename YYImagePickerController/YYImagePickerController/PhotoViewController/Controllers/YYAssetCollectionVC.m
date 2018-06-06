@@ -12,6 +12,7 @@
 #import "YYAssetCollection.h"
 #import "YYAssetCell.h"
 #import "YYAsset.h"
+#import "HQPhotoBrowser.h"
 
 @interface YYAssetCollectionVC ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -183,6 +184,22 @@
     if (self.selectArray.count == 0) {
         //请选择图片
         return;
+    }
+    
+    NSMutableArray *array = [NSMutableArray arrayWithCapacity:0];
+    if (self.mediaType == PHAssetMediaTypeImage) {
+        //只选择图片
+        for (int i = 0; i < self.selectArray.count; i++) {
+            YYAsset *asset = self.selectArray[i];
+            HQPhotoItem *item = [HQPhotoItem itemWithSourceView:nil thumbImage:asset.coverImage imageUrl:nil];
+            [array addObject:item];
+        }
+        HQPhotoBrowser *browser = [HQPhotoBrowser browserWithPhotoItems:array selectedIndex:0];
+        //    browser.bounces = YES;
+        [browser showFromViewController:self];
+        
+    }else if (self.mediaType == PHAssetMediaTypeVideo) {
+        //只选择视频
     }
 }
 

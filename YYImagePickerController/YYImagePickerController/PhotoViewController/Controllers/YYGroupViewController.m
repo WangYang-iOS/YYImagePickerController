@@ -52,7 +52,6 @@
     }else if (status == PHAuthorizationStatusRestricted) {
         //受限制 例如家长模式
     }
-    
 }
 
 #pragma mark -
