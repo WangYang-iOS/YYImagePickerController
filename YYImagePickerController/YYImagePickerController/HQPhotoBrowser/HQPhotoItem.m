@@ -74,4 +74,23 @@
                                              image:image];
 }
 
+- (instancetype)initWithSourceView:(UIImageView *)view
+                             asset:(PHAsset *)asset {
+    self = [super init];
+    if (self) {
+        _sourceView = view;
+        _thumbImage = view.image;
+        _imageUrl = nil;
+        _asset = asset;
+    }
+    return self;
+}
+
++ (instancetype)itemWithSourceView:(UIImageView *)view
+                             asset:(PHAsset *)asset
+{
+    return [[HQPhotoItem alloc] initWithSourceView:view
+                                             asset:asset];
+}
+
 @end

@@ -19,6 +19,5 @@ extern const CGFloat kHQPhotoViewMaxScale;
 
 - (void)setItem:(HQPhotoItem *)item determinate:(BOOL)determinate;
 - (void)resizeImageView;
-//- (void)cancelCurrentImageLoad;
 
 @end

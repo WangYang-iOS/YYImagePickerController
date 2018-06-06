@@ -1,18 +1,17 @@
 //
-//  HQPhotoBrowser.m
-//  HQPhotoBrowser
+//  YYPhotoBrowser.m
+//  YYImagePickerController
 //
-//  Created by wangyang on 2018/4/25.
+//  Created by wangyang on 2018/6/6.
 //  Copyright © 2018年 HangzhouHaiqu. All rights reserved.
 //
 
-#import "HQPhotoBrowser.h"
-#import "HQPhotoView.h"
+#import "YYPhotoBrowser.h"
+#import "YYPhotoView.h"
 
 static const NSTimeInterval kAnimationDuration = 0.3;
 static const NSTimeInterval kSpringAnimationDuration = 0.5;
-
-@interface HQPhotoBrowser ()<UIScrollViewDelegate, UIViewControllerTransitioningDelegate, CAAnimationDelegate> {
+@interface YYPhotoBrowser ()<UIScrollViewDelegate, UIViewControllerTransitioningDelegate, CAAnimationDelegate> {
     CGPoint _startLocation;
 }
 
@@ -25,15 +24,14 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
 @property (nonatomic, strong) UIPageControl *pageControl;
 @property (nonatomic, strong) UILabel *pageLabel;
 @property (nonatomic, assign) BOOL presented;
-
 @end
 
-@implementation HQPhotoBrowser
+@implementation YYPhotoBrowser
 
 // MAKR: - Initializer
 
-+ (instancetype)browserWithPhotoItems:(NSArray<HQPhotoItem *> *)photoItems selectedIndex:(NSUInteger)selectedIndex {
-    HQPhotoBrowser *browser = [[HQPhotoBrowser alloc] initWithPhotoItems:photoItems selectedIndex:selectedIndex];
++ (instancetype)browserWithPhotoItems:(NSArray<YYPhotoItem *> *)photoItems selectedIndex:(NSUInteger)selectedIndex {
+    YYPhotoBrowser *browser = [[YYPhotoBrowser alloc] initWithPhotoItems:photoItems selectedIndex:selectedIndex];
     return browser;
 }
 
@@ -42,7 +40,7 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
     return nil;
 }
 
-- (instancetype)initWithPhotoItems:(NSArray<HQPhotoItem *> *)photoItems selectedIndex:(NSUInteger)selectedIndex {
+- (instancetype)initWithPhotoItems:(NSArray<YYPhotoItem *> *)photoItems selectedIndex:(NSUInteger)selectedIndex {
     self = [super init];
     if (self) {
         self.modalPresentationStyle = UIModalPresentationCustom;
@@ -51,10 +49,10 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
         _photoItems = [NSMutableArray arrayWithArray:photoItems];
         _currentPage = selectedIndex;
         
-        _dismissalStyle = HQPhotoBrowserInteractiveDismissalStyleScale;
-        _pageindicatorStyle = HQPhotoBrowserPageIndicatorStyleDot;
-        _backgroundStyle = HQPhotoBrowserBackgroundStyleBlack;
-        _loadingStyle = HQPhotoBrowserImageLoadingStyleIndeterminate;
+        _dismissalStyle = YYPhotoBrowserInteractiveDismissalStyleScale;
+        _pageindicatorStyle = YYPhotoBrowserPageIndicatorStyleDot;
+        _backgroundStyle = YYPhotoBrowserBackgroundStyleBlack;
+        _loadingStyle = YYPhotoBrowserImageLoadingStyleIndeterminate;
         
         _reusableItemViews = [[NSMutableSet alloc] init];
         _visibleItemViews = [[NSMutableArray alloc] init];
@@ -74,15 +72,15 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
     [self.view addSubview:_backgroundView];
     
     CGRect rect = self.view.bounds;
-    rect.origin.x -= kHQPhotoViewPadding;
-    rect.size.width += 2 * kHQPhotoViewPadding;
+    rect.origin.x -= kYYPhotoViewPadding;
+    rect.size.width += 2 * kYYPhotoViewPadding;
     _scrollView = [[UIScrollView alloc] initWithFrame:rect];
     _scrollView.pagingEnabled = YES;
     _scrollView.showsHorizontalScrollIndicator = NO;
     _scrollView.delegate = self;
     [self.view addSubview:_scrollView];
     
-    if (_pageindicatorStyle == HQPhotoBrowserPageIndicatorStyleDot) {
+    if (_pageindicatorStyle == YYPhotoBrowserPageIndicatorStyleDot) {
         if (_photoItems.count > 1) {
             _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-40, self.view.bounds.size.width, 20)];
             _pageControl.numberOfPages = _photoItems.count;
@@ -113,10 +111,10 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    HQPhotoItem *item = [_photoItems objectAtIndex:_currentPage];
-    HQPhotoView *photoView = [self photoViewForPage:_currentPage];
+    YYPhotoItem *item = [_photoItems objectAtIndex:_currentPage];
+    YYPhotoView *photoView = [self photoViewForPage:_currentPage];
     
-    photoView.imageView.image = item.thumbImage;
+    photoView.imageView.image = [UIImage imageNamed:@""];
     [photoView resizeImageView];
     
     CGRect endRect = photoView.imageView.frame;
@@ -129,29 +127,29 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
     }
     photoView.imageView.frame = sourceRect;
     
-    if (_backgroundStyle == HQPhotoBrowserBackgroundStyleBlur) {
-        [self blurBackgroundWithImage:[self screenshot] animated:NO];
-    } else if (_backgroundStyle == HQPhotoBrowserBackgroundStyleBlurPhoto) {
-        [self blurBackgroundWithImage:item.thumbImage animated:NO];
+    if (_backgroundStyle == YYPhotoBrowserBackgroundStyleBlur) {
+//        [self blurBackgroundWithImage:[self screenshot] animated:NO];
+    } else if (_backgroundStyle == YYPhotoBrowserBackgroundStyleBlurPhoto) {
+//        [self blurBackgroundWithImage:item.thumbImage animated:NO];
     }
     if (_bounces) {
         [UIView animateWithDuration:kSpringAnimationDuration delay:0 usingSpringWithDamping:0.6 initialSpringVelocity:0 options:kNilOptions animations:^{
             photoView.imageView.frame = endRect;
             self.view.backgroundColor = [UIColor blackColor];
-            _backgroundView.alpha = 1;
+            self.backgroundView.alpha = 1;
         } completion:^(BOOL finished) {
             [self configPhotoView:photoView withItem:item];
-            _presented = YES;
+            self.presented = YES;
             [self setStatusBarHidden:YES];
         }];
     } else {
         [UIView animateWithDuration:kAnimationDuration animations:^{
             photoView.imageView.frame = endRect;
             self.view.backgroundColor = [UIColor blackColor];
-            _backgroundView.alpha = 1;
+            self.backgroundView.alpha = 1;
         } completion:^(BOOL finished) {
             [self configPhotoView:photoView withItem:item];
-            _presented = YES;
+            self.presented = YES;
             [self setStatusBarHidden:YES];
         }];
     }
@@ -182,8 +180,8 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
     return UIInterfaceOrientationMaskPortrait;
 }
 
-- (HQPhotoView *)photoViewForPage:(NSUInteger)page {
-    for (HQPhotoView *photoView in _visibleItemViews) {
+- (YYPhotoView *)photoViewForPage:(NSUInteger)page {
+    for (YYPhotoView *photoView in _visibleItemViews) {
         if (photoView.tag == page) {
             return photoView;
         }
@@ -191,10 +189,10 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
     return nil;
 }
 
-- (HQPhotoView *)dequeueReusableItemView {
-    HQPhotoView *photoView = [_reusableItemViews anyObject];
+- (YYPhotoView *)dequeueReusableItemView {
+    YYPhotoView *photoView = [_reusableItemViews anyObject];
     if (photoView == nil) {
-        photoView = [[HQPhotoView alloc] initWithFrame:_scrollView.bounds];
+        photoView = [[YYPhotoView alloc] initWithFrame:_scrollView.bounds];
     } else {
         [_reusableItemViews removeObject:photoView];
     }
@@ -204,7 +202,7 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
 
 - (void)updateReusableItemViews {
     NSMutableArray *itemsForRemove = @[].mutableCopy;
-    for (HQPhotoView *photoView in _visibleItemViews) {
+    for (YYPhotoView *photoView in _visibleItemViews) {
         if (photoView.frame.origin.x + photoView.frame.size.width < _scrollView.contentOffset.x - _scrollView.frame.size.width ||
             photoView.frame.origin.x > _scrollView.contentOffset.x + 2 * _scrollView.frame.size.width) {
             [photoView removeFromSuperview];
@@ -222,7 +220,7 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
         if (i < 0 || i >= _photoItems.count) {
             continue;
         }
-        HQPhotoView *photoView = [self photoViewForPage:i];
+        YYPhotoView *photoView = [self photoViewForPage:i];
         if (photoView == nil) {
             photoView = [self dequeueReusableItemView];
             CGRect rect = _scrollView.bounds;
@@ -232,32 +230,31 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
             [_scrollView addSubview:photoView];
             [_visibleItemViews addObject:photoView];
         }
-        NSLog(@"%@",photoView);
         if (photoView.item == nil && _presented) {
-            HQPhotoItem *item = [_photoItems objectAtIndex:i];
+            YYPhotoItem *item = [_photoItems objectAtIndex:i];
             [self configPhotoView:photoView withItem:item];
         }
     }
     
     if (page != _currentPage && _presented && (page >= 0 && page < _photoItems.count)) {
-        HQPhotoItem *item = [_photoItems objectAtIndex:page];
-        if (_backgroundStyle == HQPhotoBrowserBackgroundStyleBlurPhoto) {
-            [self blurBackgroundWithImage:item.thumbImage animated:YES];
+        YYPhotoItem *item = [_photoItems objectAtIndex:page];
+        if (_backgroundStyle == YYPhotoBrowserBackgroundStyleBlurPhoto) {
+//            [self blurBackgroundWithImage:item.thumbImage animated:YES];
         }
         _currentPage = page;
-        if (_pageindicatorStyle == HQPhotoBrowserPageIndicatorStyleDot) {
+        if (_pageindicatorStyle == YYPhotoBrowserPageIndicatorStyleDot) {
             _pageControl.currentPage = page;
         } else {
             [self configPageLabelWithPage:_currentPage];
         }
-//        if (_delegate && [_delegate respondsToSelector:@selector(ks_photoBrowser:didSelectItem:atIndex:)]) {
-//            [_delegate ks_photoBrowser:self didSelectItem:item atIndex:page];
-//        }
+        //        if (_delegate && [_delegate respondsToSelector:@selector(ks_photoBrowser:didSelectItem:atIndex:)]) {
+        //            [_delegate ks_photoBrowser:self didSelectItem:item atIndex:page];
+        //        }
     }
 }
 
 - (void)dismissAnimated:(BOOL)animated {
-    HQPhotoItem *item = [_photoItems objectAtIndex:_currentPage];
+    YYPhotoItem *item = [_photoItems objectAtIndex:_currentPage];
     if (animated) {
         [UIView animateWithDuration:kAnimationDuration animations:^{
             item.sourceView.alpha = 1;
@@ -272,7 +269,7 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
     CGPoint point = [pan translationInView:self.view];
     CGPoint location = [pan locationInView:self.view];
     CGPoint velocity = [pan velocityInView:self.view];
-    HQPhotoView *photoView = [self photoViewForPage:_currentPage];
+    YYPhotoView *photoView = [self photoViewForPage:_currentPage];
     switch (pan.state) {
         case UIGestureRecognizerStateBegan:
             _startLocation = location;
@@ -314,7 +311,7 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
     CGPoint point = [pan translationInView:self.view];
     CGPoint location = [pan locationInView:self.view];
     CGPoint velocity = [pan velocityInView:self.view];
-    HQPhotoView *photoView = [self photoViewForPage:_currentPage];
+    YYPhotoView *photoView = [self photoViewForPage:_currentPage];
     switch (pan.state) {
         case UIGestureRecognizerStateBegan:
             _startLocation = location;
@@ -350,7 +347,7 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
     CGPoint point = [pan translationInView:self.view];
     CGPoint location = [pan locationInView:self.view];
     CGPoint velocity = [pan velocityInView:self.view];
-    HQPhotoView *photoView = [self photoViewForPage:_currentPage];
+    YYPhotoView *photoView = [self photoViewForPage:_currentPage];
     switch (pan.state) {
         case UIGestureRecognizerStateBegan:
             _startLocation = location;
@@ -390,26 +387,26 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
 - (void)blurBackgroundWithImage:(UIImage *)image animated:(BOOL)animated {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         //模糊效果未实现需要自行实现
-//        UIImage *blurImage = [image hq_imageByBlurDark];
+        //        UIImage *blurImage = [image hq_imageByBlurDark];
         dispatch_async(dispatch_get_main_queue(), ^{
             if (animated) {
                 [UIView animateWithDuration:kAnimationDuration animations:^{
                     self.backgroundView.alpha = 0;
                 } completion:^(BOOL finished) {
-//                    self.backgroundView.image = blurImage;
+                    //                    self.backgroundView.image = blurImage;
                     [UIView animateWithDuration:kAnimationDuration animations:^{
                         self.backgroundView.alpha = 1;
                     } completion:nil];
                 }];
             } else {
-//                self.backgroundView.image = blurImage;
+                //                self.backgroundView.image = blurImage;
             }
         });
     });
 }
 
-- (void)configPhotoView:(HQPhotoView *)photoView withItem:(HQPhotoItem *)item {
-    [photoView setItem:item determinate:(_loadingStyle == HQPhotoBrowserImageLoadingStyleDeterminate)];
+- (void)configPhotoView:(YYPhotoView *)photoView withItem:(YYPhotoItem *)item {
+    [photoView setItem:item determinate:(_loadingStyle == YYPhotoBrowserImageLoadingStyleDeterminate)];
 }
 
 - (void)configPageLabelWithPage:(NSUInteger)page {
@@ -417,7 +414,7 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
 }
 
 - (void)handlePanBegin {
-    HQPhotoItem *item = [_photoItems objectAtIndex:_currentPage];
+    YYPhotoItem *item = [_photoItems objectAtIndex:_currentPage];
     [self setStatusBarHidden:NO];
     item.sourceView.alpha = 0;
 }
@@ -446,8 +443,8 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
 }
 
 - (void)didDoubleTap:(UITapGestureRecognizer *)tap {
-    HQPhotoView *photoView = [self photoViewForPage:_currentPage];
-    HQPhotoItem *item = [_photoItems objectAtIndex:_currentPage];
+    YYPhotoView *photoView = [self photoViewForPage:_currentPage];
+    YYPhotoItem *item = [_photoItems objectAtIndex:_currentPage];
     if (!item.finished) {
         return;
     }
@@ -466,7 +463,7 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
     if (longPress.state != UIGestureRecognizerStateBegan) {
         return;
     }
-    HQPhotoView *photoView = [self photoViewForPage:_currentPage];
+    YYPhotoView *photoView = [self photoViewForPage:_currentPage];
     UIImage *image = photoView.imageView.image;
     if (!image) {
         return;
@@ -474,19 +471,19 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
 }
 
 - (void)didPan:(UIPanGestureRecognizer *)pan {
-    HQPhotoView *photoView = [self photoViewForPage:_currentPage];
+    YYPhotoView *photoView = [self photoViewForPage:_currentPage];
     if (photoView.zoomScale > 1.1) {
         return;
     }
     
     switch (_dismissalStyle) {
-        case HQPhotoBrowserInteractiveDismissalStyleRotation:
+        case YYPhotoBrowserInteractiveDismissalStyleRotation:
             [self performRotationWithPan:pan];
             break;
-        case HQPhotoBrowserInteractiveDismissalStyleScale:
+        case YYPhotoBrowserInteractiveDismissalStyleScale:
             [self performScaleWithPan:pan];
             break;
-        case HQPhotoBrowserInteractiveDismissalStyleSlide:
+        case YYPhotoBrowserInteractiveDismissalStyleSlide:
             [self performSlideWithPan:pan];
             break;
         default:
@@ -497,11 +494,11 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
 // MARK: - Animation
 
 - (void)showCancellationAnimation {
-    HQPhotoView *photoView = [self photoViewForPage:_currentPage];
-    HQPhotoItem *item = [_photoItems objectAtIndex:_currentPage];
+    YYPhotoView *photoView = [self photoViewForPage:_currentPage];
+    YYPhotoItem *item = [_photoItems objectAtIndex:_currentPage];
     item.sourceView.alpha = 1;
     
-    if (_bounces && _dismissalStyle == HQPhotoBrowserInteractiveDismissalStyleScale) {
+    if (_bounces && _dismissalStyle == YYPhotoBrowserInteractiveDismissalStyleScale) {
         [UIView animateWithDuration:kSpringAnimationDuration delay:0 usingSpringWithDamping:0.6 initialSpringVelocity:0 options:kNilOptions animations:^{
             photoView.imageView.transform = CGAffineTransformIdentity;
             self.view.backgroundColor = [UIColor blackColor];
@@ -523,7 +520,7 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
 }
 
 - (void)showRotationCompletionAnimationFromPoint:(CGPoint)point {
-    HQPhotoView *photoView = [self photoViewForPage:_currentPage];
+    YYPhotoView *photoView = [self photoViewForPage:_currentPage];
     BOOL startFromLeft = _startLocation.x < self.view.frame.size.width / 2;
     BOOL throwToTop = point.y < 0;
     CGFloat angle, toTranslationY;
@@ -568,8 +565,8 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
 }
 
 - (void)showDismissalAnimation {
-    HQPhotoItem *item = [_photoItems objectAtIndex:_currentPage];
-    HQPhotoView *photoView = [self photoViewForPage:_currentPage];
+    YYPhotoItem *item = [_photoItems objectAtIndex:_currentPage];
+    YYPhotoView *photoView = [self photoViewForPage:_currentPage];
     [self setStatusBarHidden:NO];
     
     if (item.sourceView == nil) {
@@ -609,7 +606,7 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
 }
 
 - (void)showSlideCompletionAnimationFromPoint:(CGPoint)point {
-    HQPhotoView *photoView = [self photoViewForPage:_currentPage];
+    YYPhotoView *photoView = [self photoViewForPage:_currentPage];
     BOOL throwToTop = point.y < 0;
     CGFloat toTranslationY = 0;
     if (throwToTop) {
@@ -644,7 +641,7 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
-
 
 @end

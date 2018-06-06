@@ -13,6 +13,7 @@
 #import "YYAssetCell.h"
 #import "YYAsset.h"
 #import "HQPhotoBrowser.h"
+#import "YYPhotoBrowser.h"
 
 @interface YYAssetCollectionVC ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -151,6 +152,24 @@
         }
     }else {
         //预览
+        NSMutableArray *array = [NSMutableArray arrayWithCapacity:0];
+        YYAssetCell *cell = (YYAssetCell *)[collectionView cellForItemAtIndexPath:indexPath];
+        if (self.mediaType ==  PHAssetMediaTypeImage) {
+            for (int i = 1; i < self.dataArray.count; i++) {
+                id asset = self.dataArray[i];
+                if ([asset isKindOfClass:[YYAsset class]]) {
+                    YYPhotoItem *item = [YYPhotoItem itemWithSourceView:cell.photoImgView asset:asset];
+                    [array addObject:item];
+                }else {
+                    YYAsset *yAsset = [[YYAsset alloc] initWithPHAsset:asset];
+                    YYPhotoItem *item = [YYPhotoItem itemWithSourceView:cell.photoImgView asset:yAsset];
+                    [array addObject:item];
+                }
+            }
+            YYPhotoBrowser *browser = [YYPhotoBrowser browserWithPhotoItems:array selectedIndex:indexPath.row - 1];
+            browser.pageindicatorStyle = YYPhotoBrowserPageIndicatorStyleText;
+            [browser showFromViewController:self];
+        }
     }
 }
 
@@ -191,7 +210,7 @@
         //只选择图片
         for (int i = 0; i < self.selectArray.count; i++) {
             YYAsset *asset = self.selectArray[i];
-            HQPhotoItem *item = [HQPhotoItem itemWithSourceView:nil thumbImage:asset.coverImage imageUrl:nil];
+            HQPhotoItem *item = [HQPhotoItem itemWithSourceView:nil asset:asset.asset];
             [array addObject:item];
         }
         HQPhotoBrowser *browser = [HQPhotoBrowser browserWithPhotoItems:array selectedIndex:0];

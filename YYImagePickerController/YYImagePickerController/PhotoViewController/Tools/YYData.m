@@ -142,18 +142,36 @@
 + (PHImageRequestID)imageHighQualityFormatFromPHAsset:(PHAsset *)asset imageSize:(CGSize)imageSize complete:(void (^)(UIImage *image))complete {
     if (asset.mediaType == PHAssetMediaTypeImage || asset.mediaType == PHAssetMediaTypeVideo) {
         PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
-//        options.resizeMode = PHImageRequestOptionsResizeModeFast;
+        options.resizeMode = PHImageRequestOptionsResizeModeFast;
 //        options.version = PHImageRequestOptionsVersionCurrent;
-        options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+        options.deliveryMode = PHImageRequestOptionsDeliveryModeFastFormat;
 //        options.synchronous = YES;
-        PHImageRequestID imageRequestID = [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:imageSize contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+        PHImageRequestID imageRequestID = [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:imageSize contentMode:PHImageContentModeDefault options:nil resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+            // 排除取消，错误，低清图三种情况，即已经获取到了高清图
             //[[info objectForKey:PHImageResultIsDegradedKey] boolValue] yes 返回的是缩略图 No返回的是原图
-            BOOL downloadFinined = ![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey];
+            BOOL downloadFinined = ![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey] && ![[info objectForKey:PHImageResultIsDegradedKey] boolValue];
             if (downloadFinined) {
-                if (![[info objectForKey:PHImageResultIsDegradedKey] boolValue]) {
-                    if (complete) {
-                        complete (result);
-                    }
+                if (complete) {
+                    complete (result);
+                }
+            }
+        }];
+        return imageRequestID;
+    }else {
+        if (complete) {
+            complete (nil);
+        }
+        return 0;
+    }
+}
+
++ (PHImageRequestID)originalImageFromPHAsset:(PHAsset *)asset complete:(void (^)(UIImage *image))complete {
+    if (asset.mediaType == PHAssetMediaTypeImage || asset.mediaType == PHAssetMediaTypeVideo) {
+        PHImageRequestID imageRequestID = [[PHImageManager defaultManager] requestImageDataForAsset:asset options:nil resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
+            BOOL downloadFinined = ![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey] && ![[info objectForKey:PHImageResultIsDegradedKey] boolValue];
+            if (downloadFinined) {
+                if (complete) {
+                    complete ([UIImage imageWithData:imageData]);
                 }
             }
         }];

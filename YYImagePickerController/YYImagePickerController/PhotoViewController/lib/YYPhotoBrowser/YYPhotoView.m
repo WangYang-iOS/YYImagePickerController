@@ -1,32 +1,33 @@
 //
-//  HQPhotoView.m
-//  HQPhotoBrowser
+//  YYPhotoView.m
+//  YYImagePickerController
 //
-//  Created by wangyang on 2018/4/25.
+//  Created by wangyang on 2018/6/6.
 //  Copyright © 2018年 HangzhouHaiqu. All rights reserved.
 //
 
-#import "HQPhotoView.h"
-#import "HQPhotoItem.h"
+#import "YYPhotoView.h"
+#import "YYPhotoItem.h"
+#import "YYAsset.h"
 #import "YYData.h"
 
-const CGFloat kHQPhotoViewPadding = 10;
-const CGFloat kHQPhotoViewMaxScale = 3;
+const CGFloat kYYPhotoViewPadding = 10;
+const CGFloat kYYPhotoViewMaxScale = 3;
 
-@interface HQPhotoView ()<UIScrollViewDelegate, UIGestureRecognizerDelegate>
+@interface YYPhotoView ()<UIScrollViewDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong, readwrite) UIImageView *imageView;
-@property (nonatomic, strong, readwrite) HQPhotoItem *item;
+@property (nonatomic, strong, readwrite) YYPhotoItem *item;
 
 @end
 
-@implementation HQPhotoView
+@implementation YYPhotoView
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         self.bouncesZoom = YES;
-        self.maximumZoomScale = kHQPhotoViewMaxScale;
+        self.maximumZoomScale = kYYPhotoViewMaxScale;
         self.multipleTouchEnabled = YES;
         self.showsHorizontalScrollIndicator = YES;
         self.showsVerticalScrollIndicator = YES;
@@ -36,7 +37,7 @@ const CGFloat kHQPhotoViewMaxScale = 3;
         }
         
         _imageView = [[UIImageView alloc] init];
-        _imageView.backgroundColor = [UIColor darkGrayColor];
+//        _imageView.backgroundColor = [UIColor darkGrayColor];
         _imageView.contentMode = UIViewContentModeScaleAspectFill;
         _imageView.clipsToBounds = YES;
         [self addSubview:_imageView];
@@ -46,28 +47,25 @@ const CGFloat kHQPhotoViewMaxScale = 3;
     return self;
 }
 
-- (void)setItem:(HQPhotoItem *)item determinate:(BOOL)determinate {
+- (void)setItem:(YYPhotoItem *)item determinate:(BOOL)determinate {
     _item = item;
     if (item) {
-        if (item.image) {
-            _imageView.image = item.image;
-            _item.finished = YES;
-            
-            [self resizeImageView];
-            return;
-        }
-        __weak typeof(self) wself = self;
-        _imageView.image = item.thumbImage;
-        
         if (item.asset) {
-            [YYData originalImageFromPHAsset:item.asset complete:^(UIImage *image) {
-                __strong typeof(wself) sself = wself;
-                if (image) {
-                    sself.imageView.image = image;
-                    [sself resizeImageView];
-                    sself.item.finished = YES;
-                }
-            }];
+            if (item.asset.originalImage) {
+                self.imageView.image = item.asset.originalImage;
+                [self resizeImageView];
+                self.item.finished = YES;
+            }else {
+                __weak typeof(self) wself = self;
+                [YYData originalImageFromPHAsset:item.asset.asset complete:^(UIImage *image) {
+                    __strong typeof(wself) sself = wself;
+                    if (image) {
+                        sself.imageView.image = image;
+                        [sself resizeImageView];
+                        sself.item.finished = YES;
+                    }
+                }];
+            }
         }
     } else {
         _imageView.image = nil;
@@ -95,7 +93,7 @@ const CGFloat kHQPhotoViewMaxScale = 3;
             self.maximumZoomScale = self.bounds.size.height / height;
         }
     } else {
-        CGFloat width = self.frame.size.width - 2 * kHQPhotoViewPadding;
+        CGFloat width = self.frame.size.width - 2 * kYYPhotoViewPadding;
         _imageView.frame = CGRectMake(0, 0, width, width * 2.0 / 3);
         _imageView.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
     }

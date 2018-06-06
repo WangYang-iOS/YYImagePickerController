@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Photos/Photos.h>
 
 @interface HQPhotoItem : NSObject
 
@@ -14,6 +15,8 @@
 @property (nonatomic, strong, readonly) UIImage *thumbImage;//缩略图 占位图
 @property (nonatomic, strong, readonly) UIImage *image;
 @property (nonatomic, strong, readonly) NSURL *imageUrl;
+@property (nonatomic, strong, readonly) PHAsset *asset;
+
 @property (nonatomic, assign) BOOL finished;
 
 - (instancetype)initWithSourceView:(UIView *)view
@@ -23,6 +26,8 @@
                                   imageUrl:(NSURL *)url;
 - (instancetype)initWithSourceView:(UIImageView *)view
                                      image:(UIImage *)image;
+- (instancetype)initWithSourceView:(UIImageView *)view
+                             asset:(PHAsset *)asset;
 
 + (instancetype)itemWithSourceView:(UIView *)view
                                 thumbImage:(UIImage *)image
@@ -31,5 +36,6 @@
                                   imageUrl:(NSURL *)url;
 + (instancetype)itemWithSourceView:(UIImageView *)view
                                      image:(UIImage *)image;
-
++ (instancetype)itemWithSourceView:(UIImageView *)view
+                             asset:(PHAsset *)asset;
 @end

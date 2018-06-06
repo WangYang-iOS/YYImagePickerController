@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface YYAssetCell : UICollectionViewCell
+@property (weak, nonatomic) IBOutlet UIImageView *photoImgView;
 
 @property (nonatomic, copy) void(^callback)(UIButton *button);
 

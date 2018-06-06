@@ -44,4 +44,14 @@
 + (PHImageRequestID)imageHighQualityFormatFromPHAsset:(PHAsset *)asset
                                             imageSize:(CGSize)imageSize
                                              complete:(void (^)(UIImage *image))complete;
+
+/**
+ 获取原图
+
+ @param asset asset description
+ @param complete complete description
+ @return return value description
+ */
++ (PHImageRequestID)originalImageFromPHAsset:(PHAsset *)asset
+                                    complete:(void (^)(UIImage *image))complete;
 @end

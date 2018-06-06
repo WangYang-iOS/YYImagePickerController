@@ -9,7 +9,7 @@
 #import "YYAssetCell.h"
 
 @interface YYAssetCell ()
-@property (weak, nonatomic) IBOutlet UIImageView *photoImgView;
+
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UIButton *selectButton;

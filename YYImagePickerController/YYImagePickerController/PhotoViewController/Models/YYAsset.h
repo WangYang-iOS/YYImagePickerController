@@ -47,6 +47,11 @@
  */
 @property (nonatomic, strong) UIImage *coverImage;
 
+/**
+ 原图
+ */
+@property (nonatomic, strong) UIImage *originalImage;
+
 @property (nonatomic, assign) PHImageRequestID requestID;
 
 - (YYAsset *)initWithPHAsset:(PHAsset *)asset;
