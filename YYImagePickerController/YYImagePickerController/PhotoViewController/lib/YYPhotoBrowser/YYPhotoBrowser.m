@@ -317,7 +317,8 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
             _startLocation = location;
             [self handlePanBegin];
             break;
-        case UIGestureRecognizerStateChanged: {
+        case UIGestureRecognizerStateChanged:
+        {
             double percent = 1 - fabs(point.y) / self.view.frame.size.height;
             percent = MAX(percent, 0);
             double s = MAX(percent, 0.5);
@@ -329,7 +330,8 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
         }
             break;
         case UIGestureRecognizerStateEnded:
-        case UIGestureRecognizerStateCancelled: {
+        case UIGestureRecognizerStateCancelled:
+        {
             if (fabs(point.y) > 100 || fabs(velocity.y) > 500) {
                 [self showDismissalAnimation];
             } else {
