@@ -22,4 +22,5 @@
                              asset:(YYAsset *)asset;
 
 - (void)originalImage:(UIImage *)image;
+
 @end

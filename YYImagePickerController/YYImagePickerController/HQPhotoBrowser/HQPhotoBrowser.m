@@ -138,20 +138,20 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
         [UIView animateWithDuration:kSpringAnimationDuration delay:0 usingSpringWithDamping:0.6 initialSpringVelocity:0 options:kNilOptions animations:^{
             photoView.imageView.frame = endRect;
             self.view.backgroundColor = [UIColor blackColor];
-            _backgroundView.alpha = 1;
+            self.backgroundView.alpha = 1;
         } completion:^(BOOL finished) {
             [self configPhotoView:photoView withItem:item];
-            _presented = YES;
+            self.presented = YES;
             [self setStatusBarHidden:YES];
         }];
     } else {
         [UIView animateWithDuration:kAnimationDuration animations:^{
             photoView.imageView.frame = endRect;
             self.view.backgroundColor = [UIColor blackColor];
-            _backgroundView.alpha = 1;
+            self.backgroundView.alpha = 1;
         } completion:^(BOOL finished) {
             [self configPhotoView:photoView withItem:item];
-            _presented = YES;
+            self.presented = YES;
             [self setStatusBarHidden:YES];
         }];
     }

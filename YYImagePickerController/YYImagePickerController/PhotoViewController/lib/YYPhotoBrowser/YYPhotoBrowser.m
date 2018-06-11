@@ -36,7 +36,7 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
 }
 
 - (instancetype)init {
-    NSAssert(NO, @"Use initWithMediaItems: instead.");
+    NSAssert(NO, @"Use initWithPhotoItems: instead.");
     return nil;
 }
 
@@ -237,7 +237,7 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
     }
     
     if (page != _currentPage && _presented && (page >= 0 && page < _photoItems.count)) {
-        YYPhotoItem *item = [_photoItems objectAtIndex:page];
+//        YYPhotoItem *item = [_photoItems objectAtIndex:page];
         if (_backgroundStyle == YYPhotoBrowserBackgroundStyleBlurPhoto) {
 //            [self blurBackgroundWithImage:item.thumbImage animated:YES];
         }
@@ -428,7 +428,7 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
     doubleTap.numberOfTapsRequired = 2;
     [self.view addGestureRecognizer:doubleTap];
     
-    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didSingleTap:)];
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didSingleTap:)];                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
     singleTap.numberOfTapsRequired = 1;
     [singleTap requireGestureRecognizerToFail:doubleTap];
     [self.view addGestureRecognizer:singleTap];

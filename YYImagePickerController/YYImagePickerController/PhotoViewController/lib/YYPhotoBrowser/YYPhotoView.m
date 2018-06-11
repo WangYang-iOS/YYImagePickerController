@@ -69,8 +69,8 @@ const CGFloat kYYPhotoViewMaxScale = 3;
         }
     } else {
         _imageView.image = nil;
+        [self resizeImageView];
     }
-    [self resizeImageView];
 }
 
 - (void)resizeImageView {
