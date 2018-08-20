@@ -184,4 +184,24 @@
     }
 }
 
+/**
+ 根据asset获取视频url
+ 
+ @param asset asset description
+ @param complete complete description
+ */
++ (void)videoUrlWithAsset:(PHAsset *)asset complete:(void(^)(NSURL *url))complete {
+    PHVideoRequestOptions *options = [[PHVideoRequestOptions alloc] init];
+    options.version = PHImageRequestOptionsVersionCurrent;
+    options.deliveryMode = PHVideoRequestOptionsDeliveryModeAutomatic;
+    
+    [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:options resultHandler:^(AVAsset * _Nullable asset, AVAudioMix * _Nullable audioMix, NSDictionary * _Nullable info) {
+        AVURLAsset *urlAsset = (AVURLAsset *)asset;
+        NSURL *url = urlAsset.URL;
+        if (complete) {
+            complete(url);
+        }
+    }];
+}
+
 @end

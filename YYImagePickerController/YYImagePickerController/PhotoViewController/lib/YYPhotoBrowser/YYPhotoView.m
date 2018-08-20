@@ -11,6 +11,8 @@
 #import "YYAsset.h"
 #import "YYData.h"
 
+#import <AVFoundation/AVFoundation.h>
+
 const CGFloat kYYPhotoViewPadding = 10;
 const CGFloat kYYPhotoViewMaxScale = 3;
 
@@ -18,7 +20,8 @@ const CGFloat kYYPhotoViewMaxScale = 3;
 
 @property (nonatomic, strong, readwrite) UIImageView *imageView;
 @property (nonatomic, strong, readwrite) YYPhotoItem *item;
-
+@property (nonatomic, strong, readwrite) UIButton *playButton;
+@property (nonatomic, strong) AVPlayer *player;
 @end
 
 @implementation YYPhotoView
@@ -43,14 +46,51 @@ const CGFloat kYYPhotoViewMaxScale = 3;
         [self addSubview:_imageView];
         [self resizeImageView];
         
+        self.playButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.playButton.frame = CGRectMake(0, 0, 80, 80);
+        self.playButton.center = _imageView.center;
+        [self.playButton setImage:[UIImage imageNamed:@"icon_yy_play"] forState:UIControlStateNormal];
+        [self.playButton setImage:[UIImage imageNamed:@""] forState:UIControlStateSelected];
+        [self addSubview:self.playButton];
+        [self.playButton addTarget:self action:@selector(playVideo:) forControlEvents:UIControlEventTouchUpInside];
+        self.playButton.hidden = YES;
+        
     }
     return self;
 }
+
+
+#pragma mark -
+#pragma mark - interface
+
+- (void)playVideo:(UIButton *)button {
+    if (self.item.asset.asset.mediaType == PHAssetMediaTypeVideo) {
+        [YYData videoUrlWithAsset:self.item.asset.asset complete:^(NSURL *url) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                AVPlayer *player = [AVPlayer playerWithURL:url];
+                AVPlayerLayer *avplayerLayer = [AVPlayerLayer playerLayerWithPlayer:player];
+                avplayerLayer.frame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
+                [self.layer addSublayer:avplayerLayer];
+                self.player = player;
+                [player play];
+            });
+        }];
+    }
+}
+
+
+#pragma mark -
+#pragma mark - pravate methods
 
 - (void)setItem:(YYPhotoItem *)item determinate:(BOOL)determinate {
     _item = item;
     if (item) {
         if (item.asset) {
+            if (item.asset.asset.mediaType == PHAssetMediaTypeVideo) {
+                self.playButton.hidden = NO;
+                self.bouncesZoom = NO;
+                self.maximumZoomScale = 1;
+            }
             if (item.asset.originalImage) {
                 self.imageView.image = item.asset.originalImage;
                 [self resizeImageView];

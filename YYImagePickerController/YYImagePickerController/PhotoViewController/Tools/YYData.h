@@ -54,4 +54,13 @@
  */
 + (PHImageRequestID)originalImageFromPHAsset:(PHAsset *)asset
                                     complete:(void (^)(UIImage *image))complete;
+
+/**
+ 根据asset获取视频url
+ 
+ @param asset asset description
+ @param complete complete description
+ */
++ (void)videoUrlWithAsset:(PHAsset *)asset complete:(void(^)(NSURL *url))complete;
+
 @end

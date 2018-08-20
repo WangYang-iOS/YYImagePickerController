@@ -169,6 +169,21 @@
             YYPhotoBrowser *browser = [YYPhotoBrowser browserWithPhotoItems:array selectedIndex:indexPath.row - 1];
             browser.pageindicatorStyle = YYPhotoBrowserPageIndicatorStyleText;
             [browser showFromViewController:self];
+        }else if (self.mediaType ==  PHAssetMediaTypeVideo) {
+            for (int i = 1; i < self.dataArray.count; i++) {
+                id asset = self.dataArray[i];
+                if ([asset isKindOfClass:[YYAsset class]]) {
+                    YYPhotoItem *item = [YYPhotoItem itemWithSourceView:cell.photoImgView asset:asset];
+                    [array addObject:item];
+                }else {
+                    YYAsset *yAsset = [[YYAsset alloc] initWithPHAsset:asset];
+                    YYPhotoItem *item = [YYPhotoItem itemWithSourceView:cell.photoImgView asset:yAsset];
+                    [array addObject:item];
+                }
+            }
+            YYPhotoBrowser *browser = [YYPhotoBrowser browserWithPhotoItems:array selectedIndex:indexPath.row - 1];
+            browser.pageindicatorStyle = YYPhotoBrowserPageIndicatorStyleText;
+            [browser showFromViewController:self];
         }
     }
 }
