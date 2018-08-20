@@ -31,9 +31,10 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"YYGroupCell" bundle:nil] forCellReuseIdentifier:@"YYGroupCell"];
-    self.mediaType = PHAssetMediaTypeImage;
+    self.mediaType = OnlyPhotosType;
     self.isCamera = YES;
     self.maxCount = 9;
+    
     PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
     if (status == PHAuthorizationStatusNotDetermined) {
         [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {

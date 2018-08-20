@@ -16,7 +16,7 @@
 @property (nonatomic, copy) void (^callBack)(NSArray *array);
 
 @property (nonatomic, strong) YYAssetCollection *assetCollection;
-@property (nonatomic, assign) PHAssetMediaType mediaType;
+@property (nonatomic, assign) NSInteger mediaType;
 
 @property (nonatomic, assign) BOOL isCamera;
 @property (nonatomic, assign) NSInteger maxCount;

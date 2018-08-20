@@ -35,6 +35,10 @@
 		D13EEC8720C670B000B366BE /* icon_yy_unSelected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D13EEC8320C670B000B366BE /* icon_yy_unSelected@3x.png */; };
 		D13EEC8A20C6831500B366BE /* icon_yy_camera@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D13EEC8820C6831500B366BE /* icon_yy_camera@3x.png */; };
 		D13EEC8B20C6831500B366BE /* icon_yy_camera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D13EEC8920C6831500B366BE /* icon_yy_camera@2x.png */; };
+		D16F4612212AA7520073663F /* RSKImageCropViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D16F460B212AA7520073663F /* RSKImageCropViewController.m */; };
+		D16F4613212AA7520073663F /* RSKImageScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = D16F460D212AA7520073663F /* RSKImageScrollView.m */; };
+		D16F4614212AA7520073663F /* RSKTouchView.m in Sources */ = {isa = PBXBuildFile; fileRef = D16F460F212AA7520073663F /* RSKTouchView.m */; };
+		D16F4615212AA7520073663F /* UIImage+FixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = D16F4611212AA7520073663F /* UIImage+FixOrientation.m */; };
 		D1F99777209071F500BE7996 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D1F99776209071F500BE7996 /* AppDelegate.m */; };
 		D1F9977A209071F500BE7996 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1F99779209071F500BE7996 /* ViewController.m */; };
 		D1F9977D209071F500BE7996 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D1F9977B209071F500BE7996 /* Main.storyboard */; };
@@ -87,6 +91,16 @@
 		D13EEC8320C670B000B366BE /* icon_yy_unSelected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_yy_unSelected@3x.png"; sourceTree = "<group>"; };
 		D13EEC8820C6831500B366BE /* icon_yy_camera@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_yy_camera@3x.png"; sourceTree = "<group>"; };
 		D13EEC8920C6831500B366BE /* icon_yy_camera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_yy_camera@2x.png"; sourceTree = "<group>"; };
+		D16F4609212AA7520073663F /* RSKImageCropper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSKImageCropper.h; sourceTree = "<group>"; };
+		D16F460A212AA7520073663F /* RSKImageCropViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSKImageCropViewController.h; sourceTree = "<group>"; };
+		D16F460B212AA7520073663F /* RSKImageCropViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSKImageCropViewController.m; sourceTree = "<group>"; };
+		D16F460C212AA7520073663F /* RSKImageScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSKImageScrollView.h; sourceTree = "<group>"; };
+		D16F460D212AA7520073663F /* RSKImageScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSKImageScrollView.m; sourceTree = "<group>"; };
+		D16F460E212AA7520073663F /* RSKTouchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSKTouchView.h; sourceTree = "<group>"; };
+		D16F460F212AA7520073663F /* RSKTouchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSKTouchView.m; sourceTree = "<group>"; };
+		D16F4610212AA7520073663F /* UIImage+FixOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+FixOrientation.h"; sourceTree = "<group>"; };
+		D16F4611212AA7520073663F /* UIImage+FixOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+FixOrientation.m"; sourceTree = "<group>"; };
+		D16F4616212AA8A80073663F /* YYEnumeration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYEnumeration.h; sourceTree = "<group>"; };
 		D1F99772209071F500BE7996 /* YYImagePickerController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YYImagePickerController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1F99775209071F500BE7996 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D1F99776209071F500BE7996 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -126,6 +140,7 @@
 		D116407B20C7BCFE00BA0BA8 /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				D16F4608212AA7520073663F /* RSKImageCropper */,
 				D116407C20C7BCFE00BA0BA8 /* YYPhotoBrowser */,
 			);
 			path = lib;
@@ -201,6 +216,7 @@
 				D13EEC6220C6399600B366BE /* YYTools.m */,
 				D13EEC6420C63A7000B366BE /* YYData.h */,
 				D13EEC6520C63A7000B366BE /* YYData.m */,
+				D16F4616212AA8A80073663F /* YYEnumeration.h */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -218,6 +234,22 @@
 				D116406D20C77C1A00BA0BA8 /* icon_yy_back@3x.png */,
 			);
 			path = icons;
+			sourceTree = "<group>";
+		};
+		D16F4608212AA7520073663F /* RSKImageCropper */ = {
+			isa = PBXGroup;
+			children = (
+				D16F4609212AA7520073663F /* RSKImageCropper.h */,
+				D16F460A212AA7520073663F /* RSKImageCropViewController.h */,
+				D16F460B212AA7520073663F /* RSKImageCropViewController.m */,
+				D16F460C212AA7520073663F /* RSKImageScrollView.h */,
+				D16F460D212AA7520073663F /* RSKImageScrollView.m */,
+				D16F460E212AA7520073663F /* RSKTouchView.h */,
+				D16F460F212AA7520073663F /* RSKTouchView.m */,
+				D16F4610212AA7520073663F /* UIImage+FixOrientation.h */,
+				D16F4611212AA7520073663F /* UIImage+FixOrientation.m */,
+			);
+			path = RSKImageCropper;
 			sourceTree = "<group>";
 		};
 		D1F99769209071F500BE7996 = {
@@ -340,8 +372,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D16F4615212AA7520073663F /* UIImage+FixOrientation.m in Sources */,
+				D16F4613212AA7520073663F /* RSKImageScrollView.m in Sources */,
 				D116408220C7BD3900BA0BA8 /* YYPhotoItem.m in Sources */,
 				D116407920C77D8500BA0BA8 /* HQPhotoItem.m in Sources */,
+				D16F4614212AA7520073663F /* RSKTouchView.m in Sources */,
 				D1F9977A209071F500BE7996 /* ViewController.m in Sources */,
 				D116408520C7BD6600BA0BA8 /* YYPhotoBrowser.m in Sources */,
 				D13EEC6C20C63AC700B366BE /* YYAssetCollection.m in Sources */,
@@ -349,6 +384,7 @@
 				D13EEC5F20C6397B00B366BE /* YYGroupViewController.m in Sources */,
 				D13EEC6620C63A7000B366BE /* YYData.m in Sources */,
 				D1F99785209071F500BE7996 /* main.m in Sources */,
+				D16F4612212AA7520073663F /* RSKImageCropViewController.m in Sources */,
 				D1F99777209071F500BE7996 /* AppDelegate.m in Sources */,
 				D13C06302090725300F60ACC /* YYImagePickerController.m in Sources */,
 				D13EEC7320C642CD00B366BE /* YYGroupCell.m in Sources */,
