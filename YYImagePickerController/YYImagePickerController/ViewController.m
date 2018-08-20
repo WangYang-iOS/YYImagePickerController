@@ -9,6 +9,8 @@
 #import "ViewController.h"
 #import "YYImagePickerController.h"
 #import "YYGroupViewController.h"
+#import "YYTools.h"
+
 @interface ViewController ()
 
 @end
@@ -19,11 +21,9 @@
     [super viewDidLoad];
 }
 - (IBAction)clickButton:(id)sender {
-    YYGroupViewController *vc = [YYGroupViewController new];
-    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:nil];
-    vc.callBack = ^(NSArray *array) {
+    [YYTools showVideosWithCount:1 complete:^(id result) {
         //
-    };
+    }];
 }
 
 @end

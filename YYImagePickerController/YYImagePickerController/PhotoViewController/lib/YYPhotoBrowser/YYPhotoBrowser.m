@@ -428,10 +428,10 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
     doubleTap.numberOfTapsRequired = 2;
     [self.view addGestureRecognizer:doubleTap];
     
-    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didSingleTap:)];                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
-    singleTap.numberOfTapsRequired = 1;
-    [singleTap requireGestureRecognizerToFail:doubleTap];
-    [self.view addGestureRecognizer:singleTap];
+//    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didSingleTap:)];                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+//    singleTap.numberOfTapsRequired = 1;
+//    [singleTap requireGestureRecognizerToFail:doubleTap];
+//    [self.view addGestureRecognizer:singleTap];
     
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(didLongPress:)];
     [self.view addGestureRecognizer:longPress];

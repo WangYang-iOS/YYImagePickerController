@@ -48,9 +48,9 @@
 /**
  弹出相册 （默认到第一个分组）
  mediaType:
+ 0.AllMediaType   图片和视频
  1.OnlyPhotosType 图片
  2.OnlyVideosType 视频
- 3.AllMediaType   图片和视频
  
  @param count 选择数量
  @param mediaType mediaType description

@@ -76,7 +76,7 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="icon_yy_selected.png" width="21" height="21"/>
-        <image name="icon_yy_unSelected.png" width="21" height="21"/>
+        <image name="icon_yy_selected.png" width="22" height="22"/>
+        <image name="icon_yy_unSelected.png" width="22" height="22"/>
     </resources>
 </document>

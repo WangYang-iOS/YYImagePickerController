@@ -31,9 +31,6 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"YYGroupCell" bundle:nil] forCellReuseIdentifier:@"YYGroupCell"];
-    self.mediaType = OnlyPhotosType;
-    self.isCamera = YES;
-    self.maxCount = 9;
     
     PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
     if (status == PHAuthorizationStatusNotDetermined) {
@@ -138,10 +135,10 @@
         if (array.count > 0) {
             id obj = self.dataArray.firstObject;
             YYAssetCollection *assetCollection;
-            if ([obj isKindOfClass:[PHAssetCollection class]]) {
+            if ([obj isMemberOfClass:[PHAssetCollection class]]) {
                 assetCollection = [[YYAssetCollection alloc] initWithPHAssetCollection:obj mediaType:self.mediaType];
-                [self.dataArray addObject:assetCollection];
-            }else if ([obj isKindOfClass:[YYAssetCollection class]]) {
+                [self.dataArray replaceObjectAtIndex:0 withObject:assetCollection];
+            }else if ([obj isMemberOfClass:[YYAssetCollection class]]) {
                 assetCollection = (YYAssetCollection *)obj;
             }
             
