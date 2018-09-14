@@ -166,7 +166,8 @@
                     [array addObject:item];
                 }
             }
-            YYPhotoBrowser *browser = [YYPhotoBrowser browserWithPhotoItems:array selectedIndex:indexPath.row - 1];
+            NSInteger index = self.isCamera ? (indexPath.row - 1) : indexPath.row;
+            YYPhotoBrowser *browser = [YYPhotoBrowser browserWithPhotoItems:array selectedIndex:index];
             browser.pageindicatorStyle = YYPhotoBrowserPageIndicatorStyleText;
             [browser showFromViewController:self];
         }else if (self.mediaType ==  PHAssetMediaTypeVideo) {
@@ -181,7 +182,8 @@
                     [array addObject:item];
                 }
             }
-            YYPhotoBrowser *browser = [YYPhotoBrowser browserWithPhotoItems:array selectedIndex:indexPath.row - 1];
+            NSInteger index = self.isCamera ? (indexPath.row - 1) : indexPath.row;
+            YYPhotoBrowser *browser = [YYPhotoBrowser browserWithPhotoItems:array selectedIndex:index];
             browser.pageindicatorStyle = YYPhotoBrowserPageIndicatorStyleText;
             [browser showFromViewController:self];
         }

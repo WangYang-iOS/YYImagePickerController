@@ -167,12 +167,20 @@
 
 + (PHImageRequestID)originalImageFromPHAsset:(PHAsset *)asset complete:(void (^)(UIImage *image))complete {
     if (asset.mediaType == PHAssetMediaTypeImage || asset.mediaType == PHAssetMediaTypeVideo) {
-        PHImageRequestID imageRequestID = [[PHImageManager defaultManager] requestImageDataForAsset:asset options:nil resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
+        PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
+//        options.resizeMode = PHImageRequestOptionsResizeModeFast;
+//        options.version = PHImageRequestOptionsVersionCurrent;
+//        options.deliveryMode = PHImageRequestOptionsDeliveryModeFastFormat;
+//        options.synchronous = YES;
+        options.networkAccessAllowed = YES;
+        PHImageRequestID imageRequestID = [[PHImageManager defaultManager] requestImageDataForAsset:asset options:options resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
             BOOL downloadFinined = ![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey] && ![[info objectForKey:PHImageResultIsDegradedKey] boolValue];
             if (downloadFinined) {
-                if (complete) {
-                    complete ([UIImage imageWithData:imageData]);
-                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (complete) {
+                        complete ([UIImage imageWithData:imageData]);
+                    }
+                });
             }
         }];
         return imageRequestID;

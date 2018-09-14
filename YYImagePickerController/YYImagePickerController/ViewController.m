@@ -20,10 +20,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 }
+
 - (IBAction)clickButton:(id)sender {
     [YYTools showVideosWithCount:1 complete:^(id result) {
         //
     }];
+//    [YYTools showImagesWithCount:3 complete:^(id result) {
+//        //
+//    }];
 }
 
 @end
