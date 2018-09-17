@@ -69,9 +69,9 @@
     
     NSString *groupName = @"";
     if (assetCollection.assetCollection.assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumUserLibrary) {
-        groupName = [NSString stringWithFormat:@"相机胶卷（%ld）",assetCollection.count];
+        groupName = [NSString stringWithFormat:@"相机胶卷（%ld）",(long)assetCollection.count];
     }else {
-        groupName = [NSString stringWithFormat:@"%@（%ld）",assetCollection.assetCollection.localizedTitle,assetCollection.count];;
+        groupName = [NSString stringWithFormat:@"%@（%ld）",assetCollection.assetCollection.localizedTitle,(long)assetCollection.count];;
     }
     if (assetCollection.coverImage) {
         [cell layoutGroupCell:assetCollection.coverImage groupName:groupName];
@@ -102,9 +102,9 @@
     YYAssetCollection *assetCollection = self.dataArray[indexPath.row];
     NSString *groupName = @"";
     if (assetCollection.assetCollection.assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumUserLibrary) {
-        groupName = [NSString stringWithFormat:@"相机胶卷（%ld）",assetCollection.count];
+        groupName = [NSString stringWithFormat:@"相机胶卷（%ld）",(long)assetCollection.count];
     }else {
-        groupName = [NSString stringWithFormat:@"%@（%ld）",assetCollection.assetCollection.localizedTitle,assetCollection.count];;
+        groupName = [NSString stringWithFormat:@"%@（%ld）",assetCollection.assetCollection.localizedTitle,(long)assetCollection.count];;
     }
     YYAssetCollectionVC *vc = [YYAssetCollectionVC new];
     vc.navigationItem.title = groupName;
@@ -144,9 +144,9 @@
             
             NSString *groupName = @"";
             if (assetCollection.assetCollection.assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumUserLibrary) {
-                groupName = [NSString stringWithFormat:@"相机胶卷（%ld）",assetCollection.count];
+                groupName = [NSString stringWithFormat:@"相机胶卷（%ld）",(long)assetCollection.count];
             }else {
-                groupName = [NSString stringWithFormat:@"%@（%ld）",assetCollection.assetCollection.localizedTitle,assetCollection.count];
+                groupName = [NSString stringWithFormat:@"%@（%ld）",assetCollection.assetCollection.localizedTitle,(long)assetCollection.count];
             }
             YYAssetCollectionVC *vc = [YYAssetCollectionVC new];
             vc.navigationItem.title = groupName;

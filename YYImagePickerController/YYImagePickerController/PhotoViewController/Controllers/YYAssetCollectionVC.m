@@ -227,11 +227,14 @@
         //只选择图片
         for (int i = 0; i < self.selectArray.count; i++) {
             YYAsset *asset = self.selectArray[i];
-            HQPhotoItem *item = [HQPhotoItem itemWithSourceView:nil asset:asset.asset];
+            NSInteger index = [self.dataArray indexOfObject:asset];
+            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:index inSection:0];
+            YYAssetCell *cell = (YYAssetCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
+            
+            HQPhotoItem *item = [HQPhotoItem itemWithSourceView:cell.photoImgView asset:asset.asset];
             [array addObject:item];
         }
         HQPhotoBrowser *browser = [HQPhotoBrowser browserWithPhotoItems:array selectedIndex:0];
-        //    browser.bounces = YES;
         [browser showFromViewController:self];
         
     }else if (self.mediaType == PHAssetMediaTypeVideo) {

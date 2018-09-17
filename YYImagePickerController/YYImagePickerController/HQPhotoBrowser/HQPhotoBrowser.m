@@ -164,6 +164,7 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
 // MARK: - Public
 
 - (void)showFromViewController:(UIViewController *)vc {
+//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self];
     [vc presentViewController:self animated:NO completion:nil];
 }
 

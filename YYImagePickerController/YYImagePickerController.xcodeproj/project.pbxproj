@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D110C8BC214F406E00AFA174 /* HQPhotoTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = D110C8BB214F406E00AFA174 /* HQPhotoTopView.m */; };
+		D110C8BF214F416500AFA174 /* icon_yy_back_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D110C8BD214F416400AFA174 /* icon_yy_back_white@2x.png */; };
+		D110C8C0214F416500AFA174 /* icon_yy_back_white@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D110C8BE214F416400AFA174 /* icon_yy_back_white@3x.png */; };
 		D116406F20C77C1A00BA0BA8 /* icon_yy_back@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D116406D20C77C1A00BA0BA8 /* icon_yy_back@3x.png */; };
 		D116407020C77C1A00BA0BA8 /* icon_yy_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D116406E20C77C1A00BA0BA8 /* icon_yy_back@2x.png */; };
 		D116407820C77D8500BA0BA8 /* HQPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = D116407320C77D8500BA0BA8 /* HQPhotoBrowser.m */; };
@@ -50,6 +53,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D110C8BA214F406E00AFA174 /* HQPhotoTopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HQPhotoTopView.h; sourceTree = "<group>"; };
+		D110C8BB214F406E00AFA174 /* HQPhotoTopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HQPhotoTopView.m; sourceTree = "<group>"; };
+		D110C8BD214F416400AFA174 /* icon_yy_back_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_yy_back_white@2x.png"; sourceTree = "<group>"; };
+		D110C8BE214F416400AFA174 /* icon_yy_back_white@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_yy_back_white@3x.png"; sourceTree = "<group>"; };
 		D116406D20C77C1A00BA0BA8 /* icon_yy_back@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_yy_back@3x.png"; sourceTree = "<group>"; };
 		D116406E20C77C1A00BA0BA8 /* icon_yy_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_yy_back@2x.png"; sourceTree = "<group>"; };
 		D116407220C77D8500BA0BA8 /* HQPhotoBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HQPhotoBrowser.h; sourceTree = "<group>"; };
@@ -137,6 +144,8 @@
 				D116407520C77D8500BA0BA8 /* HQPhotoItem.m */,
 				D116407620C77D8500BA0BA8 /* HQPhotoView.h */,
 				D116407720C77D8500BA0BA8 /* HQPhotoView.m */,
+				D110C8BA214F406E00AFA174 /* HQPhotoTopView.h */,
+				D110C8BB214F406E00AFA174 /* HQPhotoTopView.m */,
 			);
 			path = HQPhotoBrowser;
 			sourceTree = "<group>";
@@ -238,6 +247,8 @@
 				D13EEC8320C670B000B366BE /* icon_yy_unSelected@3x.png */,
 				D116406E20C77C1A00BA0BA8 /* icon_yy_back@2x.png */,
 				D116406D20C77C1A00BA0BA8 /* icon_yy_back@3x.png */,
+				D110C8BD214F416400AFA174 /* icon_yy_back_white@2x.png */,
+				D110C8BE214F416400AFA174 /* icon_yy_back_white@3x.png */,
 			);
 			path = icons;
 			sourceTree = "<group>";
@@ -356,6 +367,7 @@
 				D116406F20C77C1A00BA0BA8 /* icon_yy_back@3x.png in Resources */,
 				D13EEC8720C670B000B366BE /* icon_yy_unSelected@3x.png in Resources */,
 				D13EEC8A20C6831500B366BE /* icon_yy_camera@3x.png in Resources */,
+				D110C8BF214F416500AFA174 /* icon_yy_back_white@2x.png in Resources */,
 				D13EEC8420C670B000B366BE /* icon_yy_selected@2x.png in Resources */,
 				D13EEC8520C670B000B366BE /* icon_yy_selected@3x.png in Resources */,
 				D13EEC6F20C641ED00B366BE /* YYGroupViewController.xib in Resources */,
@@ -368,6 +380,7 @@
 				D13EEC7920C659E100B366BE /* YYAssetCollectionVC.xib in Resources */,
 				D13EEC7420C642CD00B366BE /* YYGroupCell.xib in Resources */,
 				D16F4619212AB52A0073663F /* icon_yy_play@2x.png in Resources */,
+				D110C8C0214F416500AFA174 /* icon_yy_back_white@3x.png in Resources */,
 				D1F9977D209071F500BE7996 /* Main.storyboard in Resources */,
 				D13EEC5920C637EF00B366BE /* YYImagePickerController.xib in Resources */,
 			);
@@ -388,6 +401,7 @@
 				D1F9977A209071F500BE7996 /* ViewController.m in Sources */,
 				D116408520C7BD6600BA0BA8 /* YYPhotoBrowser.m in Sources */,
 				D13EEC6C20C63AC700B366BE /* YYAssetCollection.m in Sources */,
+				D110C8BC214F406E00AFA174 /* HQPhotoTopView.m in Sources */,
 				D116407820C77D8500BA0BA8 /* HQPhotoBrowser.m in Sources */,
 				D13EEC5F20C6397B00B366BE /* YYGroupViewController.m in Sources */,
 				D13EEC6620C63A7000B366BE /* YYData.m in Sources */,
