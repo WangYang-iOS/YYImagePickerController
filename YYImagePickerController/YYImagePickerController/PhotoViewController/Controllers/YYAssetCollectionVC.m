@@ -12,7 +12,6 @@
 #import "YYAssetCollection.h"
 #import "YYAssetCell.h"
 #import "YYAsset.h"
-#import "HQPhotoBrowser.h"
 #import "YYPhotoBrowser.h"
 
 @interface YYAssetCollectionVC ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
@@ -168,8 +167,19 @@
             }
             NSInteger index = self.isCamera ? (indexPath.row - 1) : indexPath.row;
             YYPhotoBrowser *browser = [YYPhotoBrowser browserWithPhotoItems:array selectedIndex:index];
-            browser.pageindicatorStyle = YYPhotoBrowserPageIndicatorStyleText;
             [browser showFromViewController:self];
+            browser.refreshBlock = ^{
+                [self.collectionView reloadData];
+                [self.selectArray removeAllObjects];
+                [self.dataArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if ([obj isKindOfClass:[YYAsset class]]) {
+                        if (((YYAsset *)obj).selected) {
+                            [self.selectArray addObject:obj];
+                        }
+                    }
+                }];
+                self.countLabel.text = [NSString stringWithFormat:@"已选择 %lu/%ld",(unsigned long)self.selectArray.count,(long)self.maxCount];
+            };
         }else if (self.mediaType ==  PHAssetMediaTypeVideo) {
             for (int i = 1; i < self.dataArray.count; i++) {
                 id asset = self.dataArray[i];
@@ -186,6 +196,16 @@
             YYPhotoBrowser *browser = [YYPhotoBrowser browserWithPhotoItems:array selectedIndex:index];
             browser.pageindicatorStyle = YYPhotoBrowserPageIndicatorStyleText;
             [browser showFromViewController:self];
+            browser.refreshBlock = ^{
+                [self.collectionView reloadData];
+                [self.selectArray removeAllObjects];
+                [self.dataArray enumerateObjectsUsingBlock:^(YYAsset *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if (obj.selected) {
+                        [self.selectArray addObject:obj];
+                    }
+                }];
+                self.countLabel.text = [NSString stringWithFormat:@"已选择 %lu/%ld",(unsigned long)self.selectArray.count,(long)self.maxCount];
+            };
         }
     }
 }
@@ -231,11 +251,21 @@
             NSIndexPath *indexPath = [NSIndexPath indexPathForItem:index inSection:0];
             YYAssetCell *cell = (YYAssetCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
             
-            HQPhotoItem *item = [HQPhotoItem itemWithSourceView:cell.photoImgView asset:asset.asset];
+            YYPhotoItem *item = [YYPhotoItem itemWithSourceView:cell.photoImgView asset:asset];
             [array addObject:item];
         }
-        HQPhotoBrowser *browser = [HQPhotoBrowser browserWithPhotoItems:array selectedIndex:0];
+        YYPhotoBrowser *browser = [YYPhotoBrowser browserWithPhotoItems:array selectedIndex:0];
         [browser showFromViewController:self];
+        browser.refreshBlock = ^{
+            [self.collectionView reloadData];
+            [self.selectArray removeAllObjects];
+            [self.dataArray enumerateObjectsUsingBlock:^(YYAsset *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if (obj.selected) {
+                    [self.selectArray addObject:obj];
+                }
+            }];
+            self.countLabel.text = [NSString stringWithFormat:@"已选择 %lu/%ld",(unsigned long)self.selectArray.count,(long)self.maxCount];
+        };
         
     }else if (self.mediaType == PHAssetMediaTypeVideo) {
         //只选择视频

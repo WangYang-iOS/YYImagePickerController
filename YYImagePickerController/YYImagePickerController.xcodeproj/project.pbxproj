@@ -44,6 +44,7 @@
 		D16F4615212AA7520073663F /* UIImage+FixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = D16F4611212AA7520073663F /* UIImage+FixOrientation.m */; };
 		D16F4619212AB52A0073663F /* icon_yy_play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D16F4617212AB52A0073663F /* icon_yy_play@2x.png */; };
 		D16F461A212AB52A0073663F /* icon_yy_play@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D16F4618212AB52A0073663F /* icon_yy_play@3x.png */; };
+		D1D48455214F8024009B68F3 /* YYPhotoTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D48454214F8024009B68F3 /* YYPhotoTopView.m */; };
 		D1F99777209071F500BE7996 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D1F99776209071F500BE7996 /* AppDelegate.m */; };
 		D1F9977A209071F500BE7996 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1F99779209071F500BE7996 /* ViewController.m */; };
 		D1F9977D209071F500BE7996 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D1F9977B209071F500BE7996 /* Main.storyboard */; };
@@ -112,6 +113,8 @@
 		D16F4616212AA8A80073663F /* YYEnumeration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYEnumeration.h; sourceTree = "<group>"; };
 		D16F4617212AB52A0073663F /* icon_yy_play@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_yy_play@2x.png"; sourceTree = "<group>"; };
 		D16F4618212AB52A0073663F /* icon_yy_play@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_yy_play@3x.png"; sourceTree = "<group>"; };
+		D1D48453214F8024009B68F3 /* YYPhotoTopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYPhotoTopView.h; sourceTree = "<group>"; };
+		D1D48454214F8024009B68F3 /* YYPhotoTopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYPhotoTopView.m; sourceTree = "<group>"; };
 		D1F99772209071F500BE7996 /* YYImagePickerController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YYImagePickerController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1F99775209071F500BE7996 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D1F99776209071F500BE7996 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -168,6 +171,8 @@
 				D116408120C7BD3900BA0BA8 /* YYPhotoItem.m */,
 				D116408320C7BD6600BA0BA8 /* YYPhotoBrowser.h */,
 				D116408420C7BD6600BA0BA8 /* YYPhotoBrowser.m */,
+				D1D48453214F8024009B68F3 /* YYPhotoTopView.h */,
+				D1D48454214F8024009B68F3 /* YYPhotoTopView.m */,
 			);
 			path = YYPhotoBrowser;
 			sourceTree = "<group>";
@@ -406,6 +411,7 @@
 				D13EEC5F20C6397B00B366BE /* YYGroupViewController.m in Sources */,
 				D13EEC6620C63A7000B366BE /* YYData.m in Sources */,
 				D1F99785209071F500BE7996 /* main.m in Sources */,
+				D1D48455214F8024009B68F3 /* YYPhotoTopView.m in Sources */,
 				D16F4612212AA7520073663F /* RSKImageCropViewController.m in Sources */,
 				D1F99777209071F500BE7996 /* AppDelegate.m in Sources */,
 				D13C06302090725300F60ACC /* YYImagePickerController.m in Sources */,

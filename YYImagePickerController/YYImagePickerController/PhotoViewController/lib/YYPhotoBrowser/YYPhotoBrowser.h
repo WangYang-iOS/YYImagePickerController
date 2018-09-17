@@ -37,8 +37,10 @@ typedef NS_ENUM(NSUInteger, YYPhotoBrowserImageLoadingStyle) {
 @property (nonatomic, assign) YYPhotoBrowserPageIndicatorStyle pageindicatorStyle;
 @property (nonatomic, assign) YYPhotoBrowserImageLoadingStyle loadingStyle;
 @property (nonatomic, assign) BOOL bounces;
+@property (nonatomic, copy) dispatch_block_t refreshBlock;
 
 + (instancetype)browserWithPhotoItems:(NSArray<YYPhotoItem *> *)photoItems selectedIndex:(NSUInteger)selectedIndex;
 - (instancetype)initWithPhotoItems:(NSArray<YYPhotoItem *> *)photoItems selectedIndex:(NSUInteger)selectedIndex;
 - (void)showFromViewController:(UIViewController *)vc;
+
 @end

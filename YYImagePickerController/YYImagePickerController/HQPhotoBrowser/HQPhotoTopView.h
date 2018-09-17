@@ -19,6 +19,8 @@
 @interface HQPhotoTopView : UIView
 @property (nonatomic, weak) id <HQPhotoTopViewDelegate> delegate;
 
+- (instancetype)initWithFrame:(CGRect)frame delegate:(id)delegate;
+
 + (CGFloat)topHeight;
 
 @end

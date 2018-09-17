@@ -8,15 +8,18 @@
 
 #import "HQPhotoBrowser.h"
 #import "HQPhotoView.h"
+#import "HQPhotoTopView.h"
 
 static const NSTimeInterval kAnimationDuration = 0.3;
 static const NSTimeInterval kSpringAnimationDuration = 0.5;
+#define kTopSafeH ([UIScreen mainScreen].bounds.size.height == 812.0 ? 24 : 0)
 
 @interface HQPhotoBrowser ()<UIScrollViewDelegate, UIViewControllerTransitioningDelegate, CAAnimationDelegate> {
     CGPoint _startLocation;
 }
 
 @property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) HQPhotoTopView *topView;
 @property (nonatomic, strong) NSMutableArray *photoItems;
 @property (nonatomic, strong) NSMutableSet *reusableItemViews;
 @property (nonatomic, strong) NSMutableArray *visibleItemViews;
@@ -81,6 +84,9 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
     _scrollView.showsHorizontalScrollIndicator = NO;
     _scrollView.delegate = self;
     [self.view addSubview:_scrollView];
+    
+    _topView = [[HQPhotoTopView alloc] initWithFrame:CGRectMake(0, kTopSafeH, self.view.bounds.size.width, 49) delegate:self];
+    [self.view addSubview:_topView];
     
     if (_pageindicatorStyle == HQPhotoBrowserPageIndicatorStyleDot) {
         if (_photoItems.count > 1) {
@@ -330,6 +336,7 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
             photoView.imageView.transform = CGAffineTransformConcat(translation, scale);
             self.view.backgroundColor = [UIColor colorWithWhite:0 alpha:percent];
             _backgroundView.alpha = percent;
+            _topView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5 + percent];
         }
             break;
         case UIGestureRecognizerStateEnded:
@@ -507,6 +514,7 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
             photoView.imageView.transform = CGAffineTransformIdentity;
             self.view.backgroundColor = [UIColor blackColor];
             self.backgroundView.alpha = 1;
+            self.topView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
         } completion:^(BOOL finished) {
             [self setStatusBarHidden:YES];
             [self configPhotoView:photoView withItem:item];
@@ -516,6 +524,7 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
             photoView.imageView.transform = CGAffineTransformIdentity;
             self.view.backgroundColor = [UIColor blackColor];
             self.backgroundView.alpha = 1;
+            self.topView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
         } completion:^(BOOL finished) {
             [self setStatusBarHidden:YES];
             [self configPhotoView:photoView withItem:item];
@@ -595,6 +604,7 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
             photoView.imageView.frame = sourceRect;
             self.view.backgroundColor = [UIColor clearColor];
             self.backgroundView.alpha = 0;
+            self.topView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
         } completion:^(BOOL finished) {
             [self dismissAnimated:NO];
         }];
@@ -603,6 +613,7 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
             photoView.imageView.frame = sourceRect;
             self.view.backgroundColor = [UIColor clearColor];
             self.backgroundView.alpha = 0;
+            self.topView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
         } completion:^(BOOL finished) {
             [self dismissAnimated:NO];
         }];

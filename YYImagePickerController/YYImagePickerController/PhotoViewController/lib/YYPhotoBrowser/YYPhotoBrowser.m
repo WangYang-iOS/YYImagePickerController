@@ -8,14 +8,20 @@
 
 #import "YYPhotoBrowser.h"
 #import "YYPhotoView.h"
+#import "YYPhotoTopView.h"
+#import "YYAsset.h"
 
 static const NSTimeInterval kAnimationDuration = 0.3;
 static const NSTimeInterval kSpringAnimationDuration = 0.5;
-@interface YYPhotoBrowser ()<UIScrollViewDelegate, UIViewControllerTransitioningDelegate, CAAnimationDelegate> {
+
+#define kTopSafeH ([UIScreen mainScreen].bounds.size.height == 812.0 ? 24 : 0)
+
+@interface YYPhotoBrowser ()<UIScrollViewDelegate, UIViewControllerTransitioningDelegate, CAAnimationDelegate, YYPhotoTopViewDelegate> {
     CGPoint _startLocation;
 }
 
 @property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) YYPhotoTopView *topView;
 @property (nonatomic, strong) NSMutableArray *photoItems;
 @property (nonatomic, strong) NSMutableSet *reusableItemViews;
 @property (nonatomic, strong) NSMutableArray *visibleItemViews;
@@ -80,21 +86,26 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
     _scrollView.delegate = self;
     [self.view addSubview:_scrollView];
     
-    if (_pageindicatorStyle == YYPhotoBrowserPageIndicatorStyleDot) {
-        if (_photoItems.count > 1) {
-            _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-40, self.view.bounds.size.width, 20)];
-            _pageControl.numberOfPages = _photoItems.count;
-            _pageControl.currentPage = _currentPage;
-            [self.view addSubview:_pageControl];
-        }
-    } else {
-        _pageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-40, self.view.bounds.size.width, 20)];
-        _pageLabel.textColor = [UIColor whiteColor];
-        _pageLabel.font = [UIFont systemFontOfSize:16];
-        _pageLabel.textAlignment = NSTextAlignmentCenter;
-        [self configPageLabelWithPage:_currentPage];
-        [self.view addSubview:_pageLabel];
-    }
+    _topView = [[YYPhotoTopView alloc] initWithFrame:CGRectMake(0, kTopSafeH, self.view.bounds.size.width, 49) delegate:self];
+    [self.view addSubview:_topView];
+    
+//    if (_pageindicatorStyle == YYPhotoBrowserPageIndicatorStyleDot) {
+//        if (_photoItems.count > 1) {
+//            _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-40, self.view.bounds.size.width, 20)];
+//            _pageControl.numberOfPages = _photoItems.count;
+//            _pageControl.currentPage = _currentPage;
+//            [self.view addSubview:_pageControl];
+//        }
+//    } else {
+//        _pageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-40, self.view.bounds.size.width, 20)];
+//        _pageLabel.textColor = [UIColor whiteColor];
+//        _pageLabel.font = [UIFont systemFontOfSize:16];
+//        _pageLabel.textAlignment = NSTextAlignmentCenter;
+//        [self configPageLabelWithPage:_currentPage];
+//        [self.view addSubview:_pageLabel];
+//    }
+    YYPhotoItem *item = [_photoItems objectAtIndex:_currentPage];
+    [self.topView showTotalNumber:_photoItems.count selectNumber:_currentPage + 1 selected:item.asset.selected];
     
     CGSize contentSize = CGSizeMake(rect.size.width * _photoItems.count, rect.size.height);
     _scrollView.contentSize = contentSize;
@@ -247,6 +258,8 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
         } else {
             [self configPageLabelWithPage:_currentPage];
         }
+        YYPhotoItem *item = [_photoItems objectAtIndex:page];
+        [self.topView showTotalNumber:_photoItems.count selectNumber:page + 1 selected:item.asset.selected];
         //        if (_delegate && [_delegate respondsToSelector:@selector(ks_photoBrowser:didSelectItem:atIndex:)]) {
         //            [_delegate ks_photoBrowser:self didSelectItem:item atIndex:page];
         //        }
@@ -261,6 +274,9 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
         }];
     } else {
         item.sourceView.alpha = 1;
+    }
+    if (self.refreshBlock) {
+        self.refreshBlock();
     }
     [self dismissViewControllerAnimated:NO completion:nil];
 }
@@ -312,6 +328,7 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
     CGPoint location = [pan locationInView:self.view];
     CGPoint velocity = [pan velocityInView:self.view];
     YYPhotoView *photoView = [self photoViewForPage:_currentPage];
+    self.topView.hidden = YES;
     switch (pan.state) {
         case UIGestureRecognizerStateBegan:
             _startLocation = location;
@@ -332,6 +349,7 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
         case UIGestureRecognizerStateEnded:
         case UIGestureRecognizerStateCancelled:
         {
+            self.topView.hidden = NO;
             if (fabs(point.y) > 100 || fabs(velocity.y) > 500) {
                 [self showDismissalAnimation];
             } else {
@@ -428,10 +446,10 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
     doubleTap.numberOfTapsRequired = 2;
     [self.view addGestureRecognizer:doubleTap];
     
-//    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didSingleTap:)];                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
-//    singleTap.numberOfTapsRequired = 1;
-//    [singleTap requireGestureRecognizerToFail:doubleTap];
-//    [self.view addGestureRecognizer:singleTap];
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didSingleTap:)];
+    singleTap.numberOfTapsRequired = 1;
+    [singleTap requireGestureRecognizerToFail:doubleTap];
+    [self.view addGestureRecognizer:singleTap];
     
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(didLongPress:)];
     [self.view addGestureRecognizer:longPress];
@@ -441,7 +459,9 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
 }
 
 - (void)didSingleTap:(UITapGestureRecognizer *)tap {
-    [self showDismissalAnimation];
+//    [self showDismissalAnimation];
+    self.topView.hidden = !self.topView.hidden;
+    
 }
 
 - (void)didDoubleTap:(UITapGestureRecognizer *)tap {
@@ -638,6 +658,19 @@ static const NSTimeInterval kSpringAnimationDuration = 0.5;
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     [self updateReusableItemViews];
     [self configItemViews];
+}
+
+#pragma mark -
+#pragma mark - YYPhotoTopViewDelegate
+
+- (void)didClickBackAtTopView:(UIView *)topView {
+    [self showDismissalAnimation];
+}
+
+- (void)topView:(UIView *)topView didSelectedItem:(UIButton *)button {
+    YYPhotoItem *item = [_photoItems objectAtIndex:_currentPage];
+    item.asset.selected = !item.asset.selected;
+    [self.topView showTotalNumber:_photoItems.count selectNumber:_currentPage + 1 selected:item.asset.selected];
 }
 
 

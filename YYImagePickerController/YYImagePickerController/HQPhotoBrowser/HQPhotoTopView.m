@@ -20,6 +20,8 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.delegate = delegate;
+        self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+        [self addSubview:self.backButton];
     }
     return self;
 }
