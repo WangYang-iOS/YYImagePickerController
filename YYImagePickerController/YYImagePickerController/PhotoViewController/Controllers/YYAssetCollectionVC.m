@@ -107,6 +107,7 @@
             }else {
                 if (self.selectArray.count == self.maxCount) {
                     //不可再选了
+                    
                 }else {
                     button.selected = !button.selected;
                     asset.selected = !asset.selected;

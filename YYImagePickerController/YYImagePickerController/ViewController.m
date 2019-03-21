@@ -26,7 +26,7 @@
 //        //
 //    }];
     [YYTools showImagesWithCount:3 complete:^(id result) {
-        //
+        
     }];
 }
 
